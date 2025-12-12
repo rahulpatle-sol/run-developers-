@@ -222,14 +222,14 @@ export function HeroSectionCity() {
               </Button>
             </MagneticButton>
             <MagneticButton>
-              <Button
+              {/* <Button
                 size="lg"
                 variant="outline"
                 className="border-2 border-secondary/40 hover:border-secondary/60 px-8 py-6 text-base bg-card/50 backdrop-blur-sm"
               >
                 <Phone className="mr-2 w-4 h-4 text-secondary" />
                 Call Now: 9300 160 966
-              </Button>
+              </Button> */}
             </MagneticButton>
           </motion.div>
 

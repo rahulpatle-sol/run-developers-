@@ -116,7 +116,7 @@ export function Navbar() {
           whileTap={{ scale: 0.98 }}
         >
           <motion.div className="relative" whileHover={{ rotate: [0, -3, 3, 0] }} transition={{ duration: 0.4 }}>
-            <img src="/images/run-logo.png" alt="Run Developers" className="h-12 w-auto object-contain" />
+            <img src="/images/mainlogo.png" alt="Run Developers" className="h-12 w-auto object-contain" />
           </motion.div>
         </motion.a>
 

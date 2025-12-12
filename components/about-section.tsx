@@ -85,14 +85,15 @@ export function AboutSection() {
             initial={{ opacity: 0, x: -80 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-            className="relative"
+            className="relative flex justify-center lg:justify-start"
           >
-            <div className="relative">
+            {/* Constrain width and center on small screens */}
+            <div className="relative mx-auto w-full max-w-[720px] px-4 sm:px-0">
               <motion.div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src="/images/image.png"
                   alt="Run Developers - Construction Excellence"
-                  className="w-full h-[450px] md:h-[550px] object-cover"
+                  className="w-full h-[300px] sm:h-[450px] md:h-[550px] object-cover object-center"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6">
                   <h3 className="text-white font-display text-2xl font-bold mb-1">Run Developers</h3>
@@ -101,9 +102,9 @@ export function AboutSection() {
                 </div>
               </motion.div>
 
-              {/* Floating stat card */}
+              {/* Floating stat card - responsive offsets so it doesn't break mobile layout */}
               <motion.div
-                className="absolute -bottom-6 -right-4 lg:-right-8 z-20"
+                className="absolute -bottom-6 right-4 lg:-right-8 z-20"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -155,7 +156,7 @@ export function AboutSection() {
             </motion.div>
 
             <motion.h2
-              className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight text-balance"
+              className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -204,11 +205,14 @@ export function AboutSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.7 }}
             >
-              <div className="btn-glass-navy text-white group">
+              <button className="btn-glass-navy text-white group inline-flex items-center px-4 py-2 rounded-md">
                 <Sparkles className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform" />
                 Explore Master Plan
-              </div>
-              <div variant="outline" className="border-primary/30 hover:border-primary/50 group bg-transparent">
+              </button>
+              <button
+                aria-pressed="false"
+                className="inline-flex items-center px-4 py-2 border border-primary/30 hover:border-primary/50 group bg-transparent rounded-md"
+              >
                 Virtual Site Tour
                 <motion.span
                   className="ml-2"
@@ -217,7 +221,7 @@ export function AboutSection() {
                 >
                   →
                 </motion.span>
-              </div>
+              </button>
             </motion.div>
 
             <motion.div
@@ -287,3 +291,5 @@ export function AboutSection() {
     </section>
   )
 }
+
+export default AboutSection
