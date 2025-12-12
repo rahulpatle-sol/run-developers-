@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Outfit, Syne, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { LenisSmoothScroll } from "@/components/lenis-smooth-scroll"
+// import { LenisSmoothScroll } from "@/components/lenis-smooth-scroll"
 import "./globals.css"
 
 const outfit = Outfit({
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        <LenisSmoothScroll />
+        {/* <LenisSmoothScroll /> */}
         {children}
         <Analytics />
       </body>
