@@ -1,146 +1,169 @@
 "use client"
 
 import type React from "react"
-
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
+import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Send, CheckCircle } from "lucide-react"
+import { Send, CheckCircle, Mail, Phone, MapPin } from "lucide-react"
 
 export function ContactSection() {
-  const [isVisible, setIsVisible] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: ""
+  })
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    // Yahan aap apna backend logic ya Formspree/Resend add kar sakte hain
+    console.log("Sending Data:", formData)
+    
     setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 3000)
+    setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" })
+    }, 3000)
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 md:py-32 bg-card relative overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
-      <div className="absolute -top-32 -right-32 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
-      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+    <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Premium Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]" />
+      </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 items-start max-w-7xl mx-auto">
+          
           {/* Left Column - Content */}
-          <div className={`${isVisible ? "animate-slide-in-left" : "opacity-0"}`}>
-            <Badge variant="secondary" className="mb-4 px-4 py-1">
-              Get In Touch
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Badge className="mb-6 bg-accent/20 text-accent border-accent/30 px-4 py-1.5 uppercase tracking-widest text-xs">
+              Contact Us
             </Badge>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight text-balance">
-              Ready to Start
-              <br />
-              <span className="text-accent">Your Journey?</span>
+            <h2 className="font-serif text-5xl md:text-6xl font-bold mb-8 leading-tight">
+              Let’s Craft Your <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary">Dream Space.</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Let's discuss your dream project. Our team of experts is ready to help you find the perfect property or
-              design your ideal space.
+            
+            <p className="text-slate-400 text-lg leading-relaxed mb-10 max-w-md">
+              Whether you have a question about properties, pricing, or anything else, our team is ready to answer all your questions.
             </p>
 
-            {/* Features */}
-            <div className="space-y-4">
+            <div className="space-y-8">
               {[
-                "Free consultation with our experts",
-                "Personalized property recommendations",
-                "Virtual site tours available",
-                "Flexible payment options",
-              ].map((feature, index) => (
-                <div key={feature} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
-                    <CheckCircle className="w-4 h-4 text-accent" />
+                { icon: Mail, label: "Email us at", value: "hello@luxuryestates.com" },
+                { icon: Phone, label: "Call us directly", value: "+1 (555) 000-0000" },
+                { icon: MapPin, label: "Visit our studio", value: "123 Design Street, New York, NY" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300">
+                    <item.icon className="w-5 h-5 text-accent" />
                   </div>
-                  <span className="text-muted-foreground">{feature}</span>
+                  <div>
+                    <p className="text-sm text-slate-500 uppercase tracking-wider">{item.label}</p>
+                    <p className="text-lg font-medium text-slate-200">{item.value}</p>
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column - Form */}
-          <div className={`${isVisible ? "animate-slide-in-right" : "opacity-0"}`}>
-            <form onSubmit={handleSubmit} className="bg-background rounded-3xl p-8 shadow-xl border border-border/50">
-              <div className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">First Name</label>
-                    <Input placeholder="John" className="bg-secondary/50 border-border/50 focus:border-accent" />
+          {/* Right Column - Premium Form Card */}
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="absolute -inset-1 bg-gradient-to-r from-accent/50 to-primary/50 rounded-[2rem] blur opacity-20" />
+            
+            <form 
+              onSubmit={handleSubmit} 
+              className="relative bg-white/5 backdrop-blur-xl rounded-[2rem] p-8 md:p-10 border border-white/10 shadow-2xl"
+            >
+              <div className="space-y-5">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase tracking-widest text-slate-400 ml-1">First Name</label>
+                    <Input 
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder="John" 
+                      className="h-12 bg-white/5 border-white/10 focus:border-accent/50 transition-all rounded-xl" 
+                    />
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-foreground mb-2 block">Last Name</label>
-                    <Input placeholder="Doe" className="bg-secondary/50 border-border/50 focus:border-accent" />
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase tracking-widest text-slate-400 ml-1">Last Name</label>
+                    <Input 
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      placeholder="Doe" 
+                      className="h-12 bg-white/5 border-white/10 focus:border-accent/50 transition-all rounded-xl" 
+                    />
                   </div>
                 </div>
 
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Email Address</label>
-                  <Input
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
+                  <Input 
+                    name="email"
                     type="email"
-                    placeholder="john@example.com"
-                    className="bg-secondary/50 border-border/50 focus:border-accent"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com" 
+                    className="h-12 bg-white/5 border-white/10 focus:border-accent/50 transition-all rounded-xl" 
                   />
                 </div>
 
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Phone Number</label>
-                  <Input
-                    type="tel"
-                    placeholder="+1 (555) 000-0000"
-                    className="bg-secondary/50 border-border/50 focus:border-accent"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Message</label>
-                  <Textarea
-                    placeholder="Tell us about your dream property..."
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-widest text-slate-400 ml-1">Message</label>
+                  <Textarea 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="How can we help you?" 
                     rows={4}
-                    className="bg-secondary/50 border-border/50 focus:border-accent resize-none"
+                    className="bg-white/5 border-white/10 focus:border-accent/50 transition-all rounded-xl resize-none" 
                   />
                 </div>
 
-                <Button
-                  type="submit"
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-base shadow-lg hover:shadow-xl transition-all duration-300 group"
+                <Button 
+                  type="submit" 
                   disabled={isSubmitted}
+                  className="w-full bg-accent hover:bg-accent/90 text-white h-14 text-lg font-semibold rounded-xl shadow-lg shadow-accent/20 transition-all active:scale-[0.98]"
                 >
                   {isSubmitted ? (
-                    <>
-                      <CheckCircle className="mr-2 w-5 h-5" />
-                      Message Sent!
-                    </>
+                    <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} className="flex items-center">
+                      <CheckCircle className="mr-2 w-5 h-5" /> Sent Successfully
+                    </motion.div>
                   ) : (
-                    <>
-                      Send Message
-                      <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </>
+                    <div className="flex items-center">
+                      Send Message <Send className="ml-2 w-4 h-4" />
+                    </div>
                   )}
                 </Button>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
