@@ -66,12 +66,12 @@ export function LocationSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl  overflow-hidden shadow-2xl">
               <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.5 }}>
                 <img
-                  src="/images/image.png"
+                  src="/images/location-map-premium.png"
                   alt="A.K. Nagar Premium Location Map"
-                  className="w-full h-auto rounded-2xl"
+                  className="w-full  rounded-2xl"
                 />
 
                 <motion.div

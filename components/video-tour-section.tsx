@@ -208,7 +208,7 @@ export function VideoTourSection() {
               className="relative w-full max-w-5xl aspect-video bg-foreground rounded-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <img src="/luxury-villa-interior-tour-video-frame-india.jpg" alt="Video player" className="w-full h-full object-cover" />
+              <video src="/video/mainvid.mp4"  loop muted autoPlay className="w-full h-full object-cover" />
 
               {/* Video controls */}
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">

@@ -64,7 +64,7 @@ export function PageLoader() {
               }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
             >
-              <img src="/images/image.png" alt="AK Nagar Logo" className="w-32 h-32 object-contain" />
+              <img src="/images/ak-logo.png" alt="AK Nagar Logo" className="w-32 h-32 object-contain" />
             </motion.div>
 
             {/* Orbiting dots */}

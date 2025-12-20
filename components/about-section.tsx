@@ -91,7 +91,7 @@ export function AboutSection() {
             <div className="relative mx-auto w-full max-w-[720px] px-4 sm:px-0">
               <motion.div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/images/image.png"
+                  src="/images/ak-logo.png"
                   alt="Run Developers - Construction Excellence"
                   className="w-full h-[300px] sm:h-[450px] md:h-[550px] object-cover object-center"
                 />
