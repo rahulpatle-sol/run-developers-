@@ -18,18 +18,38 @@ export function ContactSection() {
     phone: "",
     message: ""
   })
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault()
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    // Yahan aap apna backend logic ya Formspree/Resend add kar sakte hain
-    console.log("Sending Data:", formData)
-    
-    setIsSubmitted(true)
-    setTimeout(() => {
-        setIsSubmitted(false)
-        setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" })
-    }, 3000)
-  }
+  const subject = `Contact Form: ${formData.firstName} ${formData.lastName}`
+  const body = `
+Name: ${formData.firstName} ${formData.lastName}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+Message:
+${formData.message}
+  `
+
+  const mailtoLink = `mailto:rahulpatle.dev@gmail.com?subject=${encodeURIComponent(
+    subject
+  )}&body=${encodeURIComponent(body)}`
+
+  window.location.href = mailtoLink
+
+  setIsSubmitted(true)
+  setTimeout(() => {
+    setIsSubmitted(false)
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      message: ""
+    })
+  }, 3000)
+}
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })

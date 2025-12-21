@@ -4,6 +4,8 @@ import { Outfit, Syne, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 // import { LenisSmoothScroll } from "@/components/lenis-smooth-scroll"
 import "./globals.css"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -48,8 +50,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         {/* <LenisSmoothScroll /> */}
+        <Navbar/>
         {children}
         <Analytics />
+        <Footer/>
       </body>
     </html>
   )
