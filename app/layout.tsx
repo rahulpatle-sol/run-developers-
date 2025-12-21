@@ -30,12 +30,12 @@ export const metadata: Metadata = {
   description:
     "Run Developers presents A.K. Nagar - RERA approved residential plots in Seoni, Madhya Pradesh. T&CP approved, Bank loan available. Contact: 9300 160 966",
   keywords: "A.K. Nagar, Run Developers, Seoni plots, RERA approved plots, residential plots MP, Bithli Seoni",
-  generator: "v0.app",
+  generator: "Next.js framework project built by  Run Developers",
   icons: {
     icon: [
       { url: "/icon-light-32x32.png", media: "(prefers-color-scheme: light)" },
       { url: "/icon-dark-32x32.png", media: "(prefers-color-scheme: dark)" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/", type: "image/svg+xml" },
     ],
     apple: "/apple-icon.png",
   },

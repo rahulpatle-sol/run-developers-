@@ -1,9 +1,15 @@
 import React from 'react'
-
-const Projects = () => {
+import ProjectsHeroSlider from './slider'
+import ProjectsHeroSection from './hero'
+import ProcessSection from './process'
+const projects = () => {
   return (
-    <div>Projects</div>
+    <>
+     <ProjectsHeroSection/>
+    <ProjectsHeroSlider/>
+   <ProcessSection/>
+    </>
   )
 }
 
-export default Projects;
+export default projects

@@ -28,3 +28,17 @@ Continue building your app on:
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+
+min size 1200-1800
+1500  
+section  map location  here section  ke down me location  plan  
+video  thumbnai ;l change 
+whhta app  conactivity
+linkdin  yt 
+seprate about page is here 
+projects page   ak  nagar and upcoming 
+
+location  location  map  analozy   
+
+
