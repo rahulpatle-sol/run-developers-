@@ -11,7 +11,7 @@ const projects = [
     tag: "Ongoing Project",
     desc:
       "AK Nagar is our flagship residential development designed for modern families. The project focuses on well-planned internal roads, green open spaces, drainage systems, and legally approved plots to ensure long-term value and peace of mind.",
-    image: "/ak-nagar.jpg",
+    image: "/images/main-gate.png",
     highlight: true,
   },
   {
@@ -19,21 +19,21 @@ const projects = [
     tag: "Upcoming Project",
     desc:
       "An upcoming plotted development focused on nature-friendly planning, wide roads, and essential infrastructure for future-ready living.",
-    image: "/project-2.jpg",
+    image: "/project1.jpg",
   },
   {
     title: "Sunrise Enclave",
     tag: "Upcoming Project",
     desc:
       "A thoughtfully planned residential colony aimed at affordable living without compromising on quality and legal transparency.",
-    image: "/project-3.jpg",
+    image: "/project4.jpg",
   },
   {
     title: "Urban Nest",
     tag: "Upcoming Project",
     desc:
       "A compact residential project designed for young families and first-time buyers, offering smart layouts and essential amenities.",
-    image: "/project-4.jpg",
+    image: "/project2.jpg",
   },
 ];
 

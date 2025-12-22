@@ -52,7 +52,7 @@ export default function WhatWeBuild() {
             <img
               src="/colony.jpg"
               alt="Residential Colony"
-              className="w-full h-[260px] object-cover grayscale mb-6"
+              className="w-full h-[260px] object-cover  mb-6"
             />
             <h3 className="font-serif text-xl mb-3">
               Residential Colonies
@@ -67,9 +67,9 @@ export default function WhatWeBuild() {
           {/* CARD 2 */}
           <div className="build-anim">
             <img
-              src="/home.jpg"
+              src="/house.jpg"
               alt="Premium Homes"
-              className="w-full h-[260px] object-cover grayscale mb-6"
+              className="w-full h-[260px] object-cover  mb-6"
             />
             <h3 className="font-serif text-xl mb-3">
               Premium Homes & Villas
@@ -83,9 +83,9 @@ export default function WhatWeBuild() {
           {/* CARD 3 */}
           <div className="build-anim">
             <img
-              src="/commercial.jpg"
-              alt="Commercial Property"
-              className="w-full h-[260px] object-cover grayscale mb-6"
+              src="/commericial.jpg"
+              alt="commercial Property"
+              className="w-full h-[260px] object-cover  mb-6"
             />
             <h3 className="font-serif text-xl mb-3">
               Commercial Properties

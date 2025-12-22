@@ -13,10 +13,10 @@ const footerLinks = {
     { name: "Certifications", href: "#certifications" },
   ],
   support: [
-    { name: "Contact Us", href: "#contact" },
-    { name: "Site Visit", href: "#" },
-    { name: "Plot Booking", href: "#plot-layout" },
-    { name: "Documentation", href: "#" },
+    { name: "Contact Us", href: "/contact" },
+    { name: "Site Visit", href: "/projects" },
+    // { name: "Plot Booking", href: "#plot-layout" },
+    // { name: "Documentation", href: "#" },
   ],
   legal: [
     { name: "Privacy Policy", href: "#" },
@@ -28,10 +28,10 @@ const footerLinks = {
 
 const socialLinks = [
   { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Twitter, href: "#", label: "Twitter" },
+  // { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  // { icon: Linkedin, href: "#", label: "LinkedIn" },
+  // { icon: Youtube, href: "#", label: "YouTube" },
 ]
 
 export function Footer() {

@@ -20,7 +20,7 @@ export default function Home() {
     <>
       <PageLoader />
       <main className="min-h-screen bg-background overflow-x-hidden">
-        <Navbar />
+        {/* <Navbar /> */}
         <HeroSectionCity />
         <AboutSection />
         <AmenitiesSection />
@@ -32,7 +32,7 @@ export default function Home() {
         <LocationSection />
         <TestimonialsSection />
         <ContactSection />
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </>
   )
