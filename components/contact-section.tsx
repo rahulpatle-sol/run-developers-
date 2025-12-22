@@ -2,12 +2,12 @@
 
 import type React from "react"
 import { useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Send, CheckCircle, Mail, Phone, MapPin } from "lucide-react"
+import { Send, CheckCircle, Mail, Phone, MapPin, ArrowRight } from "lucide-react"
 
 export function ContactSection() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -18,171 +18,188 @@ export function ContactSection() {
     phone: "",
     message: ""
   })
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault()
 
-  const subject = `Contact Form: ${formData.firstName} ${formData.lastName}`
-  const body = `
-Name: ${formData.firstName} ${formData.lastName}
-Email: ${formData.email}
-Phone: ${formData.phone}
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const subject = `New Inquiry: A.K. Nagar - ${formData.firstName} ${formData.lastName}`
+    const body = `Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`
+    
+    const mailtoLink = `mailto:abdulahadk104@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = mailtoLink
 
-Message:
-${formData.message}
-  `
-
-  const mailtoLink = `mailto:rahulpatle.dev@gmail.com?subject=${encodeURIComponent(
-    subject
-  )}&body=${encodeURIComponent(body)}`
-
-  window.location.href = mailtoLink
-
-  setIsSubmitted(true)
-  setTimeout(() => {
-    setIsSubmitted(false)
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: ""
-    })
-  }, 3000)
-}
-
+    setIsSubmitted(true)
+    setTimeout(() => {
+      setIsSubmitted(false)
+      setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" })
+    }, 4000)
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   return (
-    <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Premium Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]" />
+    <section id="contact" className="py-24 md:py-32 bg-[#FAFAFA] dark:bg-zinc-950 relative overflow-hidden">
+      {/* Premium Ambient Background */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-zinc-200/50 dark:bg-zinc-800/20 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-emerald-100/40 dark:bg-emerald-900/10 rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-start max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-20 items-center max-w-7xl mx-auto">
           
-          {/* Left Column - Content */}
+          {/* Left Side: Brand Narrative */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Badge className="mb-6 bg-accent/20 text-accent border-accent/30 px-4 py-1.5 uppercase tracking-widest text-xs">
-              Contact Us
+            <Badge variant="outline" className="mb-6 border-zinc-200 text-zinc-500 font-semibold px-4 py-1.5 uppercase tracking-widest text-[10px] bg-white">
+              Get In Touch
             </Badge>
-            <h2 className="font-serif text-5xl md:text-6xl font-bold mb-8 leading-tight">
-              Let’s Craft Your <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary">Dream Space.</span>
+            <h2 className="text-5xl md:text-6xl font-bold text-zinc-900 dark:text-zinc-100 leading-[1.1] mb-8 tracking-tighter">
+              Ready to claim your <br />
+              <span className="text-zinc-400 font-light italic">piece of paradise?</span>
             </h2>
             
-            <p className="text-slate-400 text-lg leading-relaxed mb-10 max-w-md">
-              Whether you have a question about properties, pricing, or anything else, our team is ready to answer all your questions.
+            <p className="text-zinc-500 text-lg leading-relaxed mb-12 max-w-md">
+              Our sales experts are available for site visits and detailed walkthroughs of A.K. Nagar.
             </p>
 
-            <div className="space-y-8">
+            <div className="space-y-10">
               {[
-                { icon: Mail, label: "Email us at", value: "hello@luxuryestates.com" },
-                { icon: Phone, label: "Call us directly", value: "+1 (555) 000-0000" },
-                { icon: MapPin, label: "Visit our studio", value: "123 Design Street, New York, NY" },
+                { 
+                  icon: Phone, 
+                  label: "Direct Line", 
+                  value: "+91 9300 160 966", 
+                  href: "tel:9300160966" 
+                },
+                { 
+                  icon: Mail, 
+                  label: "Official Correspondence", 
+                  value: "abdulahadk104@gmail.com", 
+                  href: "mailto:abdulahadk104@gmail.com" 
+                },
+                { 
+                  icon: MapPin, 
+                  label: "Site Location", 
+                  value: "Bypass Chowk, Mandla Road, Seoni, MP", 
+                  href: "#" 
+                },
               ].map((item, i) => (
-                <div key={i} className="flex items-start gap-4 group">
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300">
-                    <item.icon className="w-5 h-5 text-accent" />
+                <motion.a 
+                  key={i}
+                  href={item.href}
+                  whileHover={{ x: 10 }}
+                  className="flex items-center gap-6 group cursor-pointer"
+                >
+                  <div className="w-14 h-14 rounded-full bg-white border border-zinc-100 flex items-center justify-center shadow-sm group-hover:border-emerald-200 group-hover:bg-emerald-50 transition-all duration-300">
+                    <item.icon className="w-5 h-5 text-zinc-900 group-hover:text-emerald-600" />
                   </div>
                   <div>
-                    <p className="text-sm text-slate-500 uppercase tracking-wider">{item.label}</p>
-                    <p className="text-lg font-medium text-slate-200">{item.value}</p>
+                    <p className="text-[10px] text-zinc-400 uppercase font-bold tracking-widest mb-1">{item.label}</p>
+                    <p className="text-xl font-bold text-zinc-800 dark:text-zinc-200 tracking-tight">{item.value}</p>
                   </div>
-                </div>
+                </motion.a>
               ))}
             </div>
           </motion.div>
 
-          {/* Right Column - Premium Form Card */}
+          {/* Right Side: Modern Form Card */}
           <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-accent/50 to-primary/50 rounded-[2rem] blur opacity-20" />
-            
-            <form 
-              onSubmit={handleSubmit} 
-              className="relative bg-white/5 backdrop-blur-xl rounded-[2rem] p-8 md:p-10 border border-white/10 shadow-2xl"
-            >
-              <div className="space-y-5">
-                <div className="grid sm:grid-cols-2 gap-5">
+            <div className="bg-white dark:bg-zinc-900 rounded-[2.5rem] p-8 md:p-12 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] border border-zinc-100 dark:border-zinc-800">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs uppercase tracking-widest text-slate-400 ml-1">First Name</label>
+                    <label className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest ml-1">First Name</label>
                     <Input 
                       name="firstName"
+                      required
                       value={formData.firstName}
                       onChange={handleChange}
-                      placeholder="John" 
-                      className="h-12 bg-white/5 border-white/10 focus:border-accent/50 transition-all rounded-xl" 
+                      placeholder="Enter name" 
+                      className="h-14 bg-zinc-50 border-transparent focus:bg-white focus:border-zinc-200 transition-all rounded-2xl px-6" 
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs uppercase tracking-widest text-slate-400 ml-1">Last Name</label>
+                    <label className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest ml-1">Phone Number</label>
                     <Input 
-                      name="lastName"
-                      value={formData.lastName}
+                      name="phone"
+                      required
+                      value={formData.phone}
                       onChange={handleChange}
-                      placeholder="Doe" 
-                      className="h-12 bg-white/5 border-white/10 focus:border-accent/50 transition-all rounded-xl" 
+                      placeholder="+91 00000 00000" 
+                      className="h-14 bg-zinc-50 border-transparent focus:bg-white focus:border-zinc-200 transition-all rounded-2xl px-6" 
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
+                  <label className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest ml-1">Email Address</label>
                   <Input 
                     name="email"
                     type="email"
+                    required
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="john@example.com" 
-                    className="h-12 bg-white/5 border-white/10 focus:border-accent/50 transition-all rounded-xl" 
+                    placeholder="example@mail.com" 
+                    className="h-14 bg-zinc-50 border-transparent focus:bg-white focus:border-zinc-200 transition-all rounded-2xl px-6" 
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-slate-400 ml-1">Message</label>
+                  <label className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest ml-1">Inquiry Details</label>
                   <Textarea 
                     name="message"
+                    required
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="How can we help you?" 
+                    placeholder="Tell us about the plot you're interested in..." 
                     rows={4}
-                    className="bg-white/5 border-white/10 focus:border-accent/50 transition-all rounded-xl resize-none" 
+                    className="bg-zinc-50 border-transparent focus:bg-white focus:border-zinc-200 transition-all rounded-2xl px-6 py-4 resize-none" 
                   />
                 </div>
 
                 <Button 
                   type="submit" 
                   disabled={isSubmitted}
-                  className="w-full bg-accent hover:bg-accent/90 text-white h-14 text-lg font-semibold rounded-xl shadow-lg shadow-accent/20 transition-all active:scale-[0.98]"
+                  className="w-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 h-16 text-base font-bold rounded-2xl transition-all active:scale-[0.98] group overflow-hidden relative"
                 >
-                  {isSubmitted ? (
-                    <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} className="flex items-center">
-                      <CheckCircle className="mr-2 w-5 h-5" /> Sent Successfully
-                    </motion.div>
-                  ) : (
-                    <div className="flex items-center">
-                      Send Message <Send className="ml-2 w-4 h-4" />
-                    </div>
-                  )}
+                  <AnimatePresence mode="wait">
+                    {isSubmitted ? (
+                      <motion.div 
+                        key="success"
+                        initial={{ y: 20, opacity: 0 }} 
+                        animate={{ y: 0, opacity: 1 }} 
+                        className="flex items-center text-emerald-500"
+                      >
+                        <CheckCircle className="mr-2 w-5 h-5" /> Request Sent
+                      </motion.div>
+                    ) : (
+                      <motion.div 
+                        key="default"
+                        initial={{ y: -20, opacity: 0 }} 
+                        animate={{ y: 0, opacity: 1 }} 
+                        className="flex items-center"
+                      >
+                        Submit Inquiry <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </Button>
-              </div>
-            </form>
+              </form>
+            </div>
+            
+            {/* Background Decorative Element */}
+            <div className="absolute -z-10 -bottom-6 -right-6 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl" />
           </motion.div>
         </div>
       </div>

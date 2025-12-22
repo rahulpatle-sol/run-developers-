@@ -135,7 +135,7 @@ export default function AKNagarLayout() {
 
           {/* Main title */}
           <div className="text-center mb-10">
-            <h1 className="text-7xl md:text-8xl font-black text-gray-900 mb-4 tracking-tight">
+            <h1 className="text-4xl md:text-8xl  text-gray-900 mb-4 tracking-tight">
               A.K. NAGAR
             </h1>
             <div className="h-1 w-24 bg-gray-900 mx-auto rounded-full mb-6"></div>
@@ -337,7 +337,7 @@ export default function AKNagarLayout() {
       </section>
 
       {/* Info Section */}
-      <section className="bg-gray-900 text-white py-16">
+      <section className=" text-balck py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-10">
             <div>
@@ -351,7 +351,7 @@ export default function AKNagarLayout() {
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-green-600 rounded-md flex items-center justify-center font-bold text-sm flex-shrink-0">✓</div>
-                    <span className="text-gray-300 pt-0.5">{item}</span>
+                    <span className=" pt-0.5">{item}</span>
                   </div>
                 ))}
               </div>
@@ -366,8 +366,8 @@ export default function AKNagarLayout() {
                   "24/7 Water & Electricity"
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center font-bold text-sm flex-shrink-0">★</div>
-                    <span className="text-gray-300 pt-0.5">{item}</span>
+                    <div className="w-6 h-6 bg rounded-md flex items-center justify-center font-bold text-sm flex-shrink-0">★</div>
+                    <span className=" pt-0.5">{item}</span>
                   </div>
                 ))}
               </div>
@@ -378,15 +378,15 @@ export default function AKNagarLayout() {
 
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
+        <div className=" rounded-2xl  overflow-hidden">
           <div className="px-6 py-12 text-center">
-            <h3 className="text-4xl font-black text-white mb-3">Book Your Dream Plot Today</h3>
-            <p className="text-lg text-gray-400 mb-8">Contact Ram Developers for site visits & booking</p>
+            <h3 className="text-4xl font-black   mb-3">Book Your Dream Plot Today</h3>
+            <p className="text-lg text-gray-400 mb-8">Contact Run Developers for site visits & booking</p>
             <div className="flex justify-center gap-4 flex-wrap">
               <a href="tel:9300160966" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-black text-lg shadow-lg hover:scale-105 transition-transform">
                 📞 9300 160 966
               </a>
-              <button className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-4 rounded-lg font-black text-lg shadow-lg hover:scale-105 transition-transform">
+              <button className="bg-white hover:bg-gray-100  px-8 py-4 rounded-lg font-black text-lg shadow-lg hover:scale-105 transition-transform">
                 Schedule Site Visit
               </button>
             </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowUp, Mail, Phone } from "lucide-react"
+import { Facebook, Twitter, Instagram, Linkedin, Youtube, ArrowUp, Mail, Phone ,MessageCircle } from "lucide-react"
 import { motion, useInView } from "framer-motion"
 import { MagneticButton } from "./magnetic-button"
 
@@ -28,11 +28,14 @@ const footerLinks = {
 
 const socialLinks = [
   { icon: Facebook, href: "#", label: "Facebook" },
-  // { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Instagram, href: "#", label: "Instagram" },
-  // { icon: Linkedin, href: "#", label: "LinkedIn" },
-  // { icon: Youtube, href: "#", label: "YouTube" },
+  {
+    icon: MessageCircle,
+    href: "https://wa.me/919300160966?text=Hello%20Run%20Developers,%20I%20want%20details%20about%20A.K.%20Nagar%20plots",
+    label: "WhatsApp",
+  },
 ]
+
 
 export function Footer() {
   const footerRef = useRef<HTMLDivElement>(null)

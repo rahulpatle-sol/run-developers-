@@ -29,17 +29,22 @@ export const metadata: Metadata = {
   title: "Run Developers | A.K. Nagar - Premium Plots in Seoni, MP | RERA Approved",
   description:
     "Run Developers presents A.K. Nagar - RERA approved residential plots in Seoni, Madhya Pradesh. T&CP approved, Bank loan available. Contact: 9300 160 966",
-  keywords: "A.K. Nagar, Run Developers, Seoni plots, RERA approved plots, residential plots MP, Bithli Seoni",
-  generator: "Next.js framework project built by  Run Developers",
-  icons: {
-    icon: [
-      { url: "/icon-light-32x32.png", media: "(prefers-color-scheme: light)" },
-      { url: "/icon-dark-32x32.png", media: "(prefers-color-scheme: dark)" },
-      { url: "/", type: "image/svg+xml" },
-    ],
-    apple: "/apple-icon.png",
-  },
+  keywords: [
+    "Run Developers",
+    "A.K. Nagar Seoni",
+    "RERA approved plots",
+    "Residential plots in Seoni",
+    "Bithli Seoni plots",
+    "MP real estate plots",
+  ],
+  applicationName: "Run Developers",
+  generator: "Next.js",
+  authors: [{ name: "Run Developers" }],
+  creator: "Run Developers",
+  publisher: "Run Developers",
+  robots: "index, follow",
 }
+
 
 export default function RootLayout({
   children,

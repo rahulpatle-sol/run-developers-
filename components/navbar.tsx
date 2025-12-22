@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Phone } from "lucide-react"
+import { Menu, X, Phone, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { MagneticButton } from "./magnetic-button"
@@ -16,12 +16,20 @@ const navLinks = [
   { name: "Contact", href: "/contact" },
 ]
 
+const whatsappLink =
+  "https://wa.me/919300160966?text=Hello%20Run%20Developers,%20I%20want%20details%20about%20A.K.%20Nagar%20plots"
+
 function GlitchLink({
   children,
   href,
   isActive,
   onClick,
-}: { children: string; href: string; isActive: boolean; onClick: () => void }) {
+}: {
+  children: string
+  href: string
+  isActive: boolean
+  onClick: () => void
+}) {
   return (
     <a
       href={href}
@@ -38,7 +46,7 @@ function GlitchLink({
         initial={{ width: 0 }}
         animate={{ width: isActive ? "100%" : 0 }}
         whileHover={{ width: "100%" }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.3 }}
       />
     </a>
   )
@@ -48,50 +56,22 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeLink, setActiveLink] = useState("Home")
-  const { scrollY } = useScroll()
 
+  const { scrollY } = useScroll()
   const navBgOpacity = useTransform(scrollY, [0, 100], [0, 1])
   const navBlur = useTransform(scrollY, [0, 100], [0, 20])
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  const menuVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.08,
-        duration: 0.5,
-        ease: [0.76, 0, 0.24, 1],
-      },
-    }),
-  }
-
-  const mobileMenuVariants = {
-    hidden: {
-      opacity: 0,
-      height: 0,
-      transition: { duration: 0.3, ease: [0.76, 0, 0.24, 1] },
-    },
-    visible: {
-      opacity: 1,
-      height: "auto",
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-  }
 
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      transition={{ duration: 0.8 }}
       className="fixed top-0 left-0 right-0 z-50"
     >
       <motion.div
@@ -99,134 +79,116 @@ export function Navbar() {
         style={{
           opacity: navBgOpacity,
           backdropFilter: `blur(${navBlur}px)`,
-          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          backgroundColor: "rgba(255,255,255,0.9)",
         }}
       />
 
       <div
         className={cn(
-          "container mx-auto px-4 lg:px-6 flex items-center justify-between relative z-10 transition-all duration-500",
+          "container mx-auto px-4 lg:px-6 flex items-center justify-between relative z-10 transition-all",
           isScrolled ? "py-2" : "py-4",
         )}
       >
-        <motion.a
-          href="#home"
-          className="flex items-center gap-3 group"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <motion.div className="relative" whileHover={{ rotate: [0, -3, 3, 0] }} transition={{ duration: 0.4 }}>
-            <img src="/images/mainlogo.png" alt="Run Developers" className="h-12 w-auto object-contain" />
-          </motion.div>
-        </motion.a>
+        {/* Logo */}
+        <a href="/" className="flex items-center gap-3">
+          <img src="/images/mainlogo.png" alt="Run Developers" className="h-12 w-auto" />
+        </a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-6">
-          {navLinks.map((link, i) => (
-            <motion.div key={link.name} custom={i} initial="hidden" animate="visible" variants={menuVariants}>
-              <MagneticButton strength={0.15}>
-                <GlitchLink
-                  href={link.href}
-                  isActive={activeLink === link.name}
-                  onClick={() => setActiveLink(link.name)}
-                >
-                  {link.name}
-                </GlitchLink>
-              </MagneticButton>
-            </motion.div>
+          {navLinks.map((link) => (
+            <MagneticButton key={link.name} strength={0.15}>
+              <GlitchLink
+                href={link.href}
+                isActive={activeLink === link.name}
+                onClick={() => setActiveLink(link.name)}
+              >
+                {link.name}
+              </GlitchLink>
+            </MagneticButton>
           ))}
         </nav>
 
-        {/* CTA Button with Phone */}
-        <motion.div
-          className="hidden lg:flex items-center gap-4"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
-        >
+        {/* Desktop CTA */}
+        <div className="hidden lg:flex items-center gap-4">
           <a
             href="tel:9300160966"
-            className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             <Phone className="w-4 h-4" />
-            <span>9300 160 966</span>
+            9300 160 966
           </a>
+
+          <MagneticButton strength={0.2}>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600 text-white text-sm font-semibold hover:bg-green-700 shadow-md"
+            >
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp
+            </a>
+          </MagneticButton>
+
           <MagneticButton>
-            <Button className="btn-glass-navy text-white px-6 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="btn-glass-navy text-white px-6">
               Book Site Visit
             </Button>
           </MagneticButton>
-        </motion.div>
+        </div>
 
-        {/* Mobile Menu Toggle */}
-        <motion.button
-          className="xl:hidden p-2 text-foreground relative z-50"
+        {/* Mobile Toggle */}
+        <button
+          className="xl:hidden p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          whileTap={{ scale: 0.9 }}
         >
-          <AnimatePresence mode="wait">
-            {isMobileMenuOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <X size={24} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="menu"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Menu size={24} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.button>
+          {isMobileMenuOpen ? <X /> : <Menu />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={mobileMenuVariants}
-            className="xl:hidden absolute top-full left-0 right-0 glass border-b border-border/50 overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="xl:hidden glass border-b border-border/50"
           >
             <nav className="container mx-auto px-6 py-6 flex flex-col gap-3">
-              {navLinks.map((link, i) => (
-                <motion.a
+              {navLinks.map((link) => (
+                <a
                   key={link.name}
                   href={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.3 }}
-                  className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2 glitch-link"
-                  data-text={link.name}
+                  className="text-base font-medium text-muted-foreground hover:text-foreground py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
-                </motion.a>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="pt-4 border-t border-border/50"
-              >
-                <a href="tel:9300160966" className="flex items-center gap-2 text-lg font-bold text-primary mb-4">
-                  <Phone className="w-5 h-5" />
-                  <span>9300 160 966</span>
                 </a>
-                <Button className="btn-glass-navy text-white w-full">Book Site Visit</Button>
-              </motion.div>
+              ))}
+
+              <div className="pt-4 border-t border-border/50">
+                <a
+                  href="tel:9300160966"
+                  className="flex items-center gap-2 text-lg font-bold text-primary mb-4"
+                >
+                  <Phone className="w-5 h-5" />
+                  9300 160 966
+                </a>
+
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-green-600 text-white font-semibold mb-3"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Chat on WhatsApp
+                </a>
+
+                <Button className="btn-glass-navy text-white w-full">
+                  Book Site Visit
+                </Button>
+              </div>
             </nav>
           </motion.div>
         )}
