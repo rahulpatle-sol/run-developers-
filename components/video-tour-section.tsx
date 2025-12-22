@@ -10,7 +10,7 @@ const videoTours = [
     id: 1,
     title: "Eco Green Villas - Seoni",
     description: "Walk through our premium villa project in the heart of Seoni",
-    thumbnail: "/modern-villa-seoni-india-green-landscape.jpg",
+    thumbnail: "/colony.jpg",
     duration: "3:45",
     views: "2.5K",
   },
@@ -98,7 +98,7 @@ export function VideoTourSection() {
           className="relative mb-12 rounded-3xl overflow-hidden group"
         >
           <div className="aspect-video relative">
-            <img src="/luxury-indian-villa-aerial-drone-shot-cinematic.jpg" alt="Featured project tour" className="w-full h-full object-cover" />
+            <img src="/images/main-gate.png" alt="Featured project tour" className="w-full h-full object- p4" />
             <div className="absolute inset-0 video-overlay" />
 
             {/* Play button overlay */}
@@ -125,7 +125,7 @@ export function VideoTourSection() {
                 transition={{ delay: 0.5 }}
               >
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
-                  Eco Builders - A Journey of Excellence
+                  Run Developers  - A Journey of Excellence
                 </h3>
                 <p className="text-white/80 mb-4">
                   Watch our complete documentary showcasing 12+ years of building dreams in Madhya Pradesh
