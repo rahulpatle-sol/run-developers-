@@ -2,8 +2,18 @@
 
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function LocationHero() {
+  const router = useRouter();
+
+  const whatsappNumber = "919300160966"; // country code + number
+  const whatsappMessage = encodeURIComponent(
+    "Hello Run Developers, I would like to book a site visit for A.K. Nagar, Seoni."
+  );
+
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
   return (
     <section className="relative overflow-hidden bg-[#fffaf3]">
       {/* subtle background lines */}
@@ -42,9 +52,9 @@ export default function LocationHero() {
           transition={{ delay: 0.15 }}
           className="mt-6 max-w-3xl mx-auto text-lg text-neutral-700"
         >
-          A thoughtfully planned plotting project by <strong>Run Developers</strong>,
-          located near Bypass Chowk, Village Bithli — designed for peaceful living
-          with excellent connectivity.
+          A thoughtfully planned plotting project by{" "}
+          <strong>Run Developers</strong>, located near Bypass Chowk, Village
+          Bithli — designed for peaceful living with excellent connectivity.
         </motion.p>
 
         {/* CTA buttons */}
@@ -54,13 +64,23 @@ export default function LocationHero() {
           transition={{ delay: 0.3 }}
           className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <button className="rounded-full bg-neutral-900 text-white px-8 py-4 font-medium shadow-lg hover:shadow-xl transition">
+          {/* View Site Location → /projects */}
+          <button
+            onClick={() => router.push("/projects")}
+            className="rounded-full bg-neutral-900 text-white px-8 py-4 font-medium shadow-lg hover:shadow-xl transition"
+          >
             View Site Location
           </button>
 
-          <button className="rounded-full bg-white px-8 py-4 font-medium text-neutral-900 shadow-md hover:shadow-lg transition">
+          {/* Book a Site Visit → WhatsApp */}
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-white px-8 py-4 font-medium text-neutral-900 shadow-md hover:shadow-lg transition text-center"
+          >
             Book a Site Visit
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

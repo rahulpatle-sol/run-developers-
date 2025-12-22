@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { useEffect } from "react";
 import { motion } from "framer-motion";
@@ -14,7 +14,7 @@ export default function LocationView() {
     }).setView([22.0873, 79.5435], 15); // Seoni approx
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors",
+      attribution: "Run developers  contributors",
     }).addTo(map);
 
     const customIcon = L.divIcon({
@@ -24,7 +24,7 @@ export default function LocationView() {
         </div>
       `,
       className: "",
-      iconSize: [24, 24],
+      iconSize: [34, 34],
       iconAnchor: [12, 12],
     });
 

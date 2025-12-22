@@ -1,14 +1,11 @@
-import React from 'react'
-import LocationView from './mapview';
-import LocationHero from './hero';
-const Location = () => {
+import LocationHero from "./hero";
+import LocationClient from "./location-client";
+
+export default function Page() {
   return (
- <>
-  <LocationHero/>
- <LocationView/>
-
- </>
-  )
+    <>
+      <LocationHero />
+      <LocationClient />
+    </>
+  );
 }
-
-export default Location;
