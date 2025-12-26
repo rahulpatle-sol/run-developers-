@@ -1,13 +1,15 @@
 "use client";
-import { useState } from "react";
-
-export default function AKNagarLayout() {
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle2, XCircle, Info, Phone, MapPin, Ruler, LayoutGrid } from "lucide-react";
+import PremiumPlotShowcase from  "./view"
+export default function AKNagarPremiumLayout() {
   const [hoveredPlot, setHoveredPlot] = useState(null);
   const [selectedPlot, setSelectedPlot] = useState(null);
   const [filterType, setFilterType] = useState("all");
 
-  // Complete 71 plots data from your brochure
-  const plots = [   
+  // Plots Data (keeping your original data structure but cleaner)
+const plots = [   
 
     // Row 1-2 (North Side)
     { id: "1", width: 30, length: 31, area: 3080.5, status: "available", type: "residential", location: "North Side" },
@@ -96,304 +98,185 @@ export default function AKNagarLayout() {
     { id: "70", width: 30, length: 30.5, area: 2408.7, status: "available", type: "residential", location: "Premium Block" },
     { id: "71", width: 40, length: 62.75, area: 6601.7, status: "available", type: "premium", location: "Premium Block" },
   ];
-  
-  const totalPlots = plots.length;
-  const soldPlots = plots.filter(p => p.status === "sold").length;
-  const availablePlots = totalPlots - soldPlots;
-  const totalArea = plots.reduce((sum, p) => sum + p.area, 0);
 
-  const getPlotSuggestion = (plot:any) => {
-    if (plot.type === "commercial") return "Perfect for shops, offices & businesses";
-    if (plot.type === "premium") return "Luxury villa with spacious gardens";
-    if (plot.type === "corner") return "Corner plot - Two side road access";
-    if (plot.area > 3000) return "Large villa with parking & lawn";
-    if (plot.area > 2000) return "3-4 BHK house with garden";
-    if (plot.area > 1500) return "2-3 BHK independent house";
-    return "Modern 2 BHK home";
-  };
-
-  const filteredPlots = filterType === "all" 
-    ? plots 
-    : plots.filter(p => p.type === filterType);
+  const filteredPlots = filterType === "all" ? plots : plots.filter(p => p.type === filterType);
 
   return (
-    <main className="min-h-screen bg-gray-50">
-   
-      <section className="relative bg-white border-b">
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          {/* Top badges */}
-          <div className="flex justify-center gap-3 mb-8 flex-wrap">
-            <div className="bg-blue-50 border border-blue-200 px-5 py-2 rounded-full hover:shadow-md transition-shadow">
-              <span className="text-blue-700 font-bold text-sm">✓ T&C.P APPROVED</span>
-            </div>
-            <div className="bg-pink-50 border border-pink-200 px-5 py-2 rounded-full hover:shadow-md transition-shadow">
-              <span className="text-pink-700 font-bold text-sm">✓ RERA APPROVED</span>
-            </div>
-            <div className="bg-green-50 border border-green-200 px-5 py-2 rounded-full hover:shadow-md transition-shadow">
-              <span className="text-green-700 font-bold text-sm">🏦 BANK LOAN</span>
-            </div>
-          </div>
+    <main className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-zinc-100">
+      
+      {/* --- HERO HEADER --- */}
+      <section className="pt-24 pb-16 px-6 max-w-7xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center"
+        >
+          <span className="text-[10px] font-bold tracking-[5px] uppercase text-zinc-400 mb-4 block">Project Inventory</span>
+          <h1 className="text-6xl md:text-8xl font-serif font-bold tracking-tighter mb-6">
+            A.K. <span className="text-zinc-300 italic font-light">Nagar</span>
+          </h1>
+          <p className="text-zinc-500 max-w-2xl mx-auto text-lg font-medium leading-relaxed italic">
+            "A thoughtfully planned residential colony near Podar School, Seoni. 
+            Legally secure, infrastructure-first."
+          </p>
+        </motion.div>
 
-          {/* Main title */}
-          <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-8xl  text-gray-900 mb-4 tracking-tight">
-              A.K. NAGAR
-            </h1>
-            <div className="h-1 w-24 bg-gray-900 mx-auto rounded-full mb-6"></div>
-            <p className="text-xl text-gray-700 font-medium mb-3">
-              Premium Residential Plotting Project
-            </p>
-            <p className="text-base text-gray-600">
-              📍 Village Bithli Seoni | Near Podar School, Mandla Road
-            </p>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            {[
-              { label: "Total Plots", value: totalPlots, color: "blue" },
-              { label: "Available", value: availablePlots, color: "green" },
-              { label: "Sold", value: soldPlots, color: "red" },
-              { label: "Total Acres", value: (totalArea / 43560).toFixed(1), color: "orange" },
-            ].map((stat, i) => (
-              <div key={i} className={`bg-${stat.color}-50 border border-${stat.color}-200 rounded-2xl p-5 hover:shadow-lg transition-all duration-300 hover:scale-105`}>
-                <div className={`text-4xl font-black text-${stat.color}-600 mb-1`}>{stat.value}</div>
-                <div className={`text-${stat.color}-700 font-semibold text-xs uppercase tracking-wider`}>{stat.label}</div>
-              </div>
-            ))}
-          </div>
+        {/* --- QUICK STATS --- */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
+          {[
+            { label: "Available", value: "48", color: "text-green-600" },
+            { label: "Booked", value: "23", color: "text-zinc-400" },
+            { label: "Approvals", value: "T&CP/RERA", color: "text-zinc-900" },
+            { label: "Roads", value: "30-40ft", color: "text-zinc-900" },
+          ].map((stat, i) => (
+            <div key={i} className="text-center p-6 border-r border-zinc-100 last:border-0">
+              <p className={`text-2xl font-bold tracking-tight ${stat.color}`}>{stat.value}</p>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-400 mt-1">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="sticky top-0 z-40 bg-white border-b shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {[
-              { type: "all", label: "All Plots", count: plots.length, color: "gray" },
-              { type: "residential", label: "Residential", count: plots.filter(p => p.type === "residential").length, color: "green" },
-              { type: "commercial", label: "Commercial", count: plots.filter(p => p.type === "commercial").length, color: "orange" },
-              { type: "premium", label: "Premium", count: plots.filter(p => p.type === "premium").length, color: "purple" },
-              { type: "corner", label: "Corner", count: plots.filter(p => p.type === "corner").length, color: "blue" },
-            ].map((filter) => (
-              <button
-                key={filter.type}
-                onClick={() => setFilterType(filter.type)}
-                className={`whitespace-nowrap px-5 py-2.5 rounded-lg font-bold text-sm transition-all duration-300 hover:scale-105 ${
-                  filterType === filter.type
-                    ? `bg-${filter.color}-600 text-white shadow-lg`
-                    : `bg-${filter.color}-50 text-${filter.color}-700 border border-${filter.color}-200 hover:bg-${filter.color}-100`
-                }`}
-              >
-                {filter.label}
-                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                  filterType === filter.type ? "bg-white/20" : `bg-${filter.color}-100`
-                }`}>
-                  {filter.count}
-                </span>
-              </button>
-            ))}
-          </div>
+      {/* --- FILTER NAVIGATION --- */}
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-y border-zinc-100 px-6 py-4">
+        <div className="max-w-7xl mx-auto flex gap-3 overflow-x-auto no-scrollbar justify-center">
+          {["all", "residential", "commercial", "premium", "corner"].map((type) => (
+            <button
+              key={type}
+              onClick={() => setFilterType(type)}
+              className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+                filterType === type 
+                ? "bg-zinc-900 text-white shadow-xl scale-105" 
+                : "bg-zinc-50 text-zinc-500 hover:bg-zinc-100"
+              }`}
+            >
+              {type}
+            </button>
+          ))}
         </div>
-      </section>
+      </nav>
 
-      {/* Table */}
+      {/* --- INVENTORY TABLE --- */}
       <section className="max-w-7xl mx-auto px-6 py-12">
-        <div className="bg-white rounded-2xl shadow-lg border overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-100 border-b-2 border-gray-300">
-                  <th className="px-6 py-4 text-left text-xs font-black text-gray-700 uppercase">Plot</th>
-                  <th className="px-6 py-4 text-left text-xs font-black text-gray-700 uppercase">Type</th>
-                  <th className="px-6 py-4 text-left text-xs font-black text-gray-700 uppercase">Dimensions</th>
-                  <th className="px-6 py-4 text-left text-xs font-black text-gray-700 uppercase">Area (Sq Ft)</th>
-                  <th className="px-6 py-4 text-left text-xs font-black text-gray-700 uppercase">Acres</th>
-                  <th className="px-6 py-4 text-left text-xs font-black text-gray-700 uppercase">Location</th>
-                  <th className="px-6 py-4 text-left text-xs font-black text-gray-700 uppercase">Status</th>
-                  <th className="px-6 py-4 text-left text-xs font-black text-gray-700 uppercase">Best For</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredPlots.map((plot, index) => {
-                  const isHovered = hoveredPlot?.id === plot.id;
-                  const isSelected = selectedPlot?.id === plot.id;
-
-                  const typeConfig = {
-                    commercial: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-300", badge: "bg-orange-600" },
-                    premium: { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-300", badge: "bg-purple-600" },
-                    corner: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-300", badge: "bg-blue-600" },
-                    residential: { bg: "bg-green-50", text: "text-green-700", border: "border-green-300", badge: "bg-green-600" }
-                  };
-
-                  const config = typeConfig[plot.type];
-
-                  return (
-                    <tr
-                      key={plot.id}
-                      className={`border-b cursor-pointer transition-all duration-200 ${
-                        isSelected
-                          ? "bg-blue-50 shadow-md"
-                          : isHovered
-                          ? "bg-gray-50 shadow-sm"
-                          : "bg-white hover:bg-gray-50"
-                      }`}
-                      onMouseEnter={() => setHoveredPlot(plot)}
-                      onMouseLeave={() => setHoveredPlot(null)}
-                      onClick={() => setSelectedPlot(plot)}
-                      style={{
-                        transform: isHovered || isSelected ? "translateX(4px)" : "translateX(0)",
-                      }}
-                    >
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-10 h-10 ${config.badge} rounded-lg flex items-center justify-center text-white font-black shadow-md`}>
-                            {plot.id}
-                          </div>
-                          <span className="text-base font-bold text-gray-900">Plot {plot.id}</span>
+        <div className="bg-white rounded-[40px] overflow-hidden">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="text-[10px] uppercase tracking-[3px] text-zinc-400 border-b border-zinc-50">
+                <th className="px-8 py-6 text-left font-bold">Plot ID</th>
+                <th className="px-8 py-6 text-left font-bold">Category</th>
+                <th className="px-8 py-6 text-left font-bold">Dimensions</th>
+                <th className="px-8 py-6 text-left font-bold">Sq. Ft Area</th>
+                <th className="px-8 py-6 text-left font-bold">Status</th>
+                <th className="px-8 py-6 text-right font-bold">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-50">
+              {filteredPlots.map((plot) => (
+                <motion.tr
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  whileHover={{ x: 10, backgroundColor: "rgba(250,250,250,1)" }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  key={plot.id}
+                  className="group cursor-pointer"
+                  onClick={() => setSelectedPlot(plot)}
+                >
+                  <td className="px-8 py-8">
+                    <span className="text-xl font-bold tracking-tighter">#{plot.id.padStart(2, '0')}</span>
+                  </td>
+                  <td className="px-8 py-8">
+                    <span className="text-[10px] font-bold uppercase px-3 py-1 rounded-full bg-zinc-100 text-zinc-500 group-hover:bg-zinc-900 group-hover:text-white transition-colors tracking-widest">
+                      {plot.type}
+                    </span>
+                  </td>
+                  <td className="px-8 py-8 font-medium text-zinc-400">
+                    <span className="text-zinc-900 font-bold">{plot.width} × {plot.length}</span> ft
+                  </td>
+                  <td className="px-8 py-8">
+                    <span className="text-lg font-bold tracking-tight">{plot.area.toLocaleString()}</span>
+                  </td>
+                  <td className="px-8 py-8">
+                    <div className="flex items-center gap-2">
+                      {plot.status === "sold" ? (
+                        <div className="flex items-center gap-2 text-zinc-300">
+                          <XCircle className="w-4 h-4" />
+                          <span className="text-[10px] font-bold uppercase tracking-widest line-through">Sold Out</span>
                         </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-block px-3 py-1.5 rounded-lg border ${config.border} ${config.bg} ${config.text} font-bold text-xs uppercase`}>
-                          {plot.type}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="text-sm font-bold text-gray-900">
-                          {plot.width} × {plot.length} ft
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="text-lg font-black text-gray-900">
-                          {plot.area.toLocaleString()}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="text-sm font-bold text-gray-700">
-                          {(plot.area / 43560).toFixed(4)}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="text-sm font-medium text-gray-600">{plot.location}</span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-bold text-sm text-white shadow-md ${
-                          plot.status === "sold" ? "bg-red-600" : "bg-green-600"
-                        }`}>
-                          <span className="w-2 h-2 bg-white rounded-full"></span>
-                          {plot.status === "sold" ? "SOLD" : "AVAILABLE"}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="text-sm font-medium text-gray-700">
-                          {getPlotSuggestion(plot)}
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Selected Plot Details */}
-          {selectedPlot && (
-            <div className="bg-gray-900 text-white border-t-4 border-blue-600">
-              <div className="px-6 py-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-2xl font-black mb-1">Selected: Plot {selectedPlot.id}</h3>
-                    <p className="text-gray-400 text-sm">Complete plot information below</p>
-                  </div>
-                  <button
-                    onClick={() => setSelectedPlot(null)}
-                    className="w-8 h-8 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center text-xl transition-colors"
-                  >
-                    ×
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {[
-                    { label: "Total Area", value: `${selectedPlot.area.toLocaleString()} sq ft` },
-                    { label: "Dimensions", value: `${selectedPlot.width} × ${selectedPlot.length} ft` },
-                    { label: "In Acres", value: (selectedPlot.area / 43560).toFixed(4) },
-                    { label: "Location", value: selectedPlot.location },
-                  ].map((item, i) => (
-                    <div key={i} className="bg-white/10 rounded-lg p-3 border border-white/20">
-                      <p className="text-xs text-gray-400 mb-1 font-medium">{item.label}</p>
-                      <p className="text-lg font-bold">{item.value}</p>
+                      ) : (
+                        <div className="flex items-center gap-2 text-green-600">
+                          <CheckCircle2 className="w-4 h-4" />
+                          <span className="text-[10px] font-bold uppercase tracking-widest">Available</span>
+                        </div>
+                      )}
                     </div>
-                  ))}
+                  </td>
+                  <td className="px-8 py-8 text-right">
+                    <button className="p-3 rounded-full bg-zinc-50 text-zinc-400 group-hover:bg-zinc-900 group-hover:text-white transition-all">
+                      <ArrowUpRight className="w-5 h-5" />
+                    </button>
+                  </td>
+                </motion.tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* --- SELECTED PLOT MODAL (Slide-up Chill Animation) --- */}
+      <AnimatePresence>
+        {selectedPlot && (
+          <motion.div 
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed bottom-0 left-0 right-0 z-[60]  bg-gray-400 text-white p-8 md:p-12 rounded-t-[50px] shadow-[0_-20px_80px_rgba(0,0,0,0.3)]"
+          >
+            <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+              <div className="flex items-center gap-8">
+                <div className="w-24 h-24 bg-white/10 rounded-[30px] flex items-center justify-center text-4xl font-bold border border-white/10">
+                  {selectedPlot.id}
                 </div>
-
-                <div className="bg-blue-600 rounded-lg p-4">
-                  <p className="text-sm font-bold mb-1">💡 Perfect For:</p>
-                  <p className="text-white/90">{getPlotSuggestion(selectedPlot)}</p>
+                <div>
+                  <h3 className="text-4xl font-bold tracking-tight mb-2 italic">A.K. Nagar Bypass</h3>
+                  <div className="flex gap-4 text-xs font-bold uppercase tracking-widest text-zinc-400">
+                    <span className="flex items-center gap-1"><Ruler className="w-3 h-3" /> {selectedPlot.area} Sq. Ft</span>
+                    <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {selectedPlot.location}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      </section>
 
-      {/* Info Section */}
-      <section className=" text-balck py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10">
-            <div>
-              <h3 className="text-2xl font-black mb-6">Why Choose AK Nagar?</h3>
-              <div className="space-y-3">
-                {[
-                  "T&C.P Approved - Legal & Safe Investment",
-                  "RERA Registered Project",
-                  "Prime Location - Near Schools & Highways",
-                  "Bank Loan Facility Available"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg-green-600 rounded-md flex items-center justify-center font-bold text-sm flex-shrink-0">✓</div>
-                    <span className=" pt-0.5">{item}</span>
-                  </div>
-                ))}
+              <div className="flex gap-4 w-full md:w-auto">
+                <a href="tel:9300160966" className="flex-1 md:flex-none bg-red-500 text-white px-10 py-5 rounded-full font-bold text-center flex items-center justify-center gap-3 hover:scale-105 transition-transform">
+                  <Phone className="w-5 h-5" /> Call for Booking
+                </a>
+                <button 
+                  onClick={() => setSelectedPlot(null)}
+                  className="px-8 py-5 rounded-full border border-white/20 font-bold hover:bg-white/10 transition-colors"
+                >
+                  Close
+                </button>
               </div>
             </div>
-            <div>
-              <h3 className="text-2xl font-black mb-6">Premium Amenities</h3>
-              <div className="space-y-3">
-                {[
-                  "Wide Concrete Roads with Drainage",
-                  "Street Lights & Tree Plantation",
-                  "Central Garden & Play Area",
-                  "24/7 Water & Electricity"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="w-6 h-6 bg rounded-md flex items-center justify-center font-bold text-sm flex-shrink-0">★</div>
-                    <span className=" pt-0.5">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* CTA */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className=" rounded-2xl  overflow-hidden">
-          <div className="px-6 py-12 text-center">
-            <h3 className="text-4xl font-black   mb-3">Book Your Dream Plot Today</h3>
-            <p className="text-lg text-gray-400 mb-8">Contact Run Developers for site visits & booking</p>
-            <div className="flex justify-center gap-4 flex-wrap">
-              <a href="tel:9300160966" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-black text-lg shadow-lg hover:scale-105 transition-transform">
-                📞 9300 160 966
-              </a>
-              <button className="bg-white hover:bg-gray-100  px-8 py-4 rounded-lg font-black text-lg shadow-lg hover:scale-105 transition-transform">
-                Schedule Site Visit
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+<PremiumPlotShowcase/>
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+      `}</style>
     </main>
+  );
+}
+
+function ArrowUpRight(props: any) {
+  return (
+    <svg {...props} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    </svg>
   );
 }
