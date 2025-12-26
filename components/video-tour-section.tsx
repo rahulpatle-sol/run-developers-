@@ -46,7 +46,7 @@ export function VideoTourSection() {
   }
 
   return (
-    <section id="video-tour" ref={sectionRef} className="py-24 md:py-32 bg-foreground relative overflow-hidden">
+    <section id="video-tour" ref={sectionRef} className="py-24 md:py-32 bg-white text-black relative overflow-hidden">
       {/* Cinematic grain overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="w-full h-full bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')]" />
@@ -54,7 +54,7 @@ export function VideoTourSection() {
 
       {/* Animated gradient orbs */}
       <motion.div
-        className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
+        className="absolute top-1/4 -left-32 w-96 h-96  rounded-full blur-3xl"
         animate={{ x: [0, 50, 0], opacity: [0.2, 0.4, 0.2] }}
         transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY }}
       />
@@ -76,11 +76,11 @@ export function VideoTourSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2 }}
           >
-            <Badge className="mb-4 px-4 py-1 bg-primary/20 text-primary-foreground border-primary/30">
+            <Badge className="mb-4 px-4 py-1 bg-primary/20 text-black border-primary/30">
               Video Tours
             </Badge>
           </motion.div>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-background mb-6 text-balance">
+          <h2 className="font-display text-4xl md:text-5xl font-bold  mb-6 text-balance">
             Experience Our
             <br />
             <span className="text-primary">Projects Virtually</span>

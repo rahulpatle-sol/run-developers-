@@ -66,16 +66,16 @@ export function Footer() {
           >
             <motion.a href="#home" className="flex items-center gap-2 mb-6 group" whileHover={{ scale: 1.05 }}>
               <motion.div
-                className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center neon-glow"
+                className="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center neon-glow"
                 whileHover={{
                   boxShadow: "0 0 30px rgba(59, 130, 246, 0.6)",
                   rotate: [0, -5, 5, 0],
                 }}
               >
-                <span className="text-primary-foreground font-bold text-lg">R</span>
+                <span className="text-white font-bold text-lg">R</span>
               </motion.div>
               <span className="font-display text-xl font-bold text-foreground tracking-tight">
-                Run<span className="text-primary">Developers</span>
+                Run<span className="font-mono">Developers</span>
               </span>
             </motion.a>
             <p className="text-muted-foreground leading-relaxed mb-4 max-w-sm">

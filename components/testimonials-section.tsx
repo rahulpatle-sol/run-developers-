@@ -81,7 +81,7 @@ export function TestimonialsSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <Badge variant="secondary" className="mb-4 px-4 py-1 glass-blue text-primary">
+            <Badge variant="secondary" className="mb-4 px-4 py-1  text-2xl glass-blue text-white">
               Testimonials
             </Badge>
           </motion.div>

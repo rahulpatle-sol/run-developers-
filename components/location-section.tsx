@@ -4,21 +4,30 @@ import { useRef } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { motion, useInView } from "framer-motion"
-import { MapPin, Navigation, Phone, Clock, Car, School, Fuel, Building2, Mail } from "lucide-react"
+import { MapPin, Navigation, Phone, Clock, Car, School, Fuel, Building2, Mail, Hospital, Train, ShoppingBag } from "lucide-react"
 import { MagneticButton } from "./magnetic-button"
 
 const landmarks = [
-  { icon: School, name: "Podar School", distance: "2 min", direction: "Adjacent" },
-  { icon: Fuel, name: "Jain Petrol Pump", distance: "1 min", direction: "Near Seoni Road" },
-  { icon: Building2, name: "Bypass Chowk", distance: "At Location", direction: "Main Intersection" },
-  { icon: Car, name: "Mandla Road", distance: "Direct Access", direction: "East Side" },
+  { icon: School, name: "Podar School", distance: "2 min", direction: "Adjacent", color: "text-blue-500" },
+  { icon: Fuel, name: "Jain Petrol Pump", distance: "1 min", direction: "Near Seoni Road", color: "text-orange-500" },
+  { icon: Building2, name: "Bypass Chowk", distance: "At Location", direction: "Main Intersection", color: "text-emerald-500" },
+  { icon: Car, name: "Mandla Road", distance: "Direct Access", direction: "East Side", color: "text-purple-500" },
 ]
 
-const directions = [
-  { from: "Seoni City Center", time: "10 mins", distance: "5 km" },
-  { from: "Jabalpur", time: "1.5 hrs", distance: "85 km" },
-  { from: "Nagpur", time: "2.5 hrs", distance: "140 km" },
-  { from: "Chhindwara", time: "1 hr", distance: "60 km" },
+// Categorized for better scanning
+const connectivity = [
+  { label: "Transport", items: [
+    { from: "Railway Station", dist: "5 km", icon: Train },
+    { from: "Bus Stand", dist: "6 km", icon: Car },
+  ]},
+  { label: "Education", items: [
+    { from: "Podar International", dist: "600 m", icon: School },
+    { from: "Ray Engg. College", dist: "500 m", icon: School },
+  ]},
+  { label: "Healthcare", items: [
+    { from: "Govt. Hospital", dist: "5 km", icon: Hospital },
+    { from: "Medical College", dist: "7 km", icon: Hospital },
+  ]},
 ]
 
 export function LocationSection() {
@@ -26,199 +35,148 @@ export function LocationSection() {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
 
   return (
-    <section id="location" ref={sectionRef} className="py-20 md:py-28 bg-card relative overflow-hidden">
-      {/* Background decorations */}
-      <motion.div
-        className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
-      />
-      <motion.div
-        className="absolute bottom-20 left-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"
-        animate={{ scale: [1.2, 1, 1.2] }}
-        transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY }}
-      />
+    <section id="location" ref={sectionRef} className="py-24 relative overflow-hidden ">
+      {/* Dynamic Background */}
+      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-[25%] -right-[10%] w-[50%] h-[50%] rounded-full  blur-[120px]" />
+        <div className="absolute -bottom-[25%] -left-[10%] w-[50%] h-[50%] rounded-full bg-secondary/10 blur-[120px]" />
+      </div> */}
 
-      <div className="container mx-auto px-4 lg:px-6 relative z-10">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-          <Badge variant="secondary" className="mb-4 px-4 py-1.5 bg-secondary/10 text-secondary border-secondary/20">
-            Prime Location
-          </Badge>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Find Us at <span className="text-gradient-red">Bypass Chowk</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Strategically located at the intersection of Mandla Road, Seoni Road, Jabalpur Bypass, and Balaghat Bypass
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
-          {/* Map Image with 3D effect */}
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header Section */}
+        <div className="flex flex-col items-center text-center mb-16">
           <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
           >
-            <div className="relative rounded-2xl  overflow-hidden shadow-2xl">
-              <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.5 }}>
+            <Badge className="mb-4   border-primary/20 hover:bg-primary/20 transition-colors px-6 py-1">
+              Location Advantage
+            </Badge>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight  mb-6">
+              The Heart of <span className="text-gradient-red">New Seoni</span>
+            </h2>
+            <p className=" max-w-2xl text-lg">
+              Connectivity that defines convenience. Strategically positioned at the crossroads of major highways and essential landmarks.
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-8">
+          {/* Left Column: Map & Primary Info */}
+          <div className="lg:col-span-7 space-y-6">
+            <motion.div 
+              className="relative group rounded-3xl overflow-hidden border border-white/10 bg-white/5 p-2"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.8 }}
+            >
+              {/* Map Placeholder/Image */}
+              <div className="aspect-[16/10] md:aspect-video rounded-2xl overflow-hidden relative">
                 <img
                   src="/images/location-map-premium.png"
-                  alt="A.K. Nagar Premium Location Map"
-                  className="w-full  rounded-2xl"
+                  alt="Location Map"
+                  className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
                 />
-
+                
+                {/* Floating Map Pin */}
                 <motion.div
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                  animate={{ y: [0, -15, 0], scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <div className="relative">
-                    <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center shadow-2xl border-4 border-white">
-                      <MapPin className="w-8 h-8 text-white" />
-                    </div>
-                    <motion.div
-                      className="absolute inset-0 bg-secondary/40 rounded-full"
-                      animate={{ scale: [1, 2.5, 1], opacity: [0.6, 0, 0.6] }}
-                      transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY }}
-                    />
+                  <div className="bg-secondary p-4 rounded-full shadow-[0_0_30px_rgba(var(--secondary),0.5)] border-4 border-white">
+                    <MapPin className="w-8 h-8 text-white" />
                   </div>
                 </motion.div>
-              </motion.div>
-            </div>
-
-            <motion.div
-              className="absolute -bottom-6 -right-4 lg:-right-8 z-20 glass-card p-5 rounded-xl shadow-2xl max-w-[240px] border border-primary/20"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.6 }}
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <motion.div
-                  className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center"
-                  animate={{ rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-                >
-                  <Phone className="w-6 h-6 text-white" />
-                </motion.div>
-                <div>
-                  <div className="text-xs text-muted-foreground">24/7 Support</div>
-                  <a
-                    href="tel:9300160966"
-                    className="font-display text-base font-bold text-foreground hover:text-primary transition-colors"
-                  >
-                    9300 160 966
-                  </a>
-                </div>
               </div>
-              <a
-                href="mailto:info@rundevelopers.com"
-                className="text-xs text-primary hover:underline flex items-center gap-1"
-              >
-                <Mail className="w-3 h-3" />
-                info@rundevelopers.com
-              </a>
             </motion.div>
-          </motion.div>
 
-          {/* Location Details */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
+            {/* Landmarks Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {landmarks.map((item, i) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.2 + (i * 0.1) }}
+                  className="p-4 rounded-2xlborder border-white/10 hover:border-primary/50 transition-all group"
+                >
+                  <item.icon className={`w-6 h-6 ${item.color} mb-3 group-hover:scale-110 transition-transform`} />
+                  <p className="text-sm font-bold  mb-1">{item.name}</p>
+                  <p className="text-[11px]  uppercase tracking-wider font-semibold">{item.distance}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Detailed Connectivity */}
+          <div className="lg:col-span-5 space-y-6">
             {/* Address Card */}
-            <div className="glass-card p-6 rounded-xl mb-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-white" />
+            <motion.div 
+              className="p-8 rounded-3xl bg-gradient-to-br from-white/10 to-transparent border  backdrop-blur-md"
+              initial={{ opacity: 0, x: 20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+            >
+              <div className="flex gap-4 items-start mb-6">
+                <div className="p-3 bg-primary rounded-2xl">
+                  <MapPin className="w-6 h-6 " />
                 </div>
                 <div>
-                  <h3 className="font-display text-lg font-bold text-foreground mb-1">A.K. Nagar, Seoni</h3>
-                  <p className="text-muted-foreground text-sm">
-                    Kh No. 218/2, 214/1, Village Bithli
-                    <br />
+                  <h3 className="text-xl font-bold tracking-tight">A.K. Nagar, Seoni</h3>
+                  <p className="text-sm mt-1 leading-relaxed">
+                    Kh No. 218/2, 214/1, Village Bithli,<br />
                     Bypass Chowk, Seoni, M.P. 480661
                   </p>
                 </div>
               </div>
-
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Clock className="w-4 h-4" />
-                <span>Site Visit: 9:00 AM - 6:00 PM (All Days)</span>
+              <div className="flex items-center gap-2 text-xs font-medium text-emerald-400 bg-emerald-400/10 w-fit px-3 py-1.5 rounded-full border border-emerald-400/20">
+                <Clock className="w-3.5 h-3.5" />
+                Site Visits: 9 AM - 6 PM (Open Daily)
               </div>
-            </div>
+            </motion.div>
 
-            {/* Nearby Landmarks */}
-            <div className="mb-6">
-              <h4 className="font-display text-lg font-bold text-foreground mb-4">Nearby Landmarks</h4>
-              <div className="grid grid-cols-2 gap-3">
-                {landmarks.map((landmark, index) => (
-                  <motion.div
-                    key={landmark.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="p-3 rounded-xl bg-muted/50 border border-border/50 hover:border-primary/30 transition-all"
-                  >
-                    <landmark.icon className="w-5 h-5 text-primary mb-2" />
-                    <div className="font-semibold text-sm">{landmark.name}</div>
-                    <div className="text-xs text-muted-foreground">{landmark.distance}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Distance from Major Cities */}
-            <div className="mb-6">
-              <h4 className="font-display text-lg font-bold text-foreground mb-4">Distance from Cities</h4>
-              <div className="space-y-2">
-                {directions.map((dir, index) => (
-                  <motion.div
-                    key={dir.from}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.5 + index * 0.1 }}
-                    className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Navigation className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-medium">{dir.from}</span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-sm font-semibold text-foreground">{dir.time}</span>
-                      <span className="text-xs text-muted-foreground ml-2">({dir.distance})</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <MagneticButton>
-                <Button className="btn-glass-navy text-white flex-1">
-                  <Navigation className="w-4 h-4 mr-2" />
-                  Get Directions
-                </Button>
-              </MagneticButton>
-              <MagneticButton>
-                <Button
-                  variant="outline"
-                  className="flex-1 border-secondary/30 hover:border-secondary/50 bg-transparent"
+            {/* Connectivity Lists */}
+            <div className="space-y-4">
+              {connectivity.map((cat, idx) => (
+                <motion.div 
+                  key={cat.label}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.3 + (idx * 0.1) }}
                 >
-                  <Phone className="w-4 h-4 mr-2" />
-                  Book Site Visit
+                  <h4 className="text-xs font-bold  uppercase tracking-[0.2em] mb-3 ml-1">{cat.label}</h4>
+                  <div className="grid grid-cols-1 gap-2">
+                    {cat.items.map((item) => (
+                      <div key={item.from} className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.07] transition-colors group">
+                        <div className="flex items-center gap-3">
+                          <item.icon className="w-4 h-4 text-primary opacity-70 group-hover:opacity-100 transition-opacity" />
+                          <span className="text-sm font-medium">{item.from}</span>
+                        </div>
+                        <span className="text-sm font-mono  px-2 py-0.5 rounded">{item.dist}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="grid grid-cols-2 gap-4 pt-4">
+              <MagneticButton>
+                <Button className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90  font-bold gap-2">
+                  <Navigation className="w-4 h-4" />
+                  Navigate
+                </Button>
+              </MagneticButton>
+              <MagneticButton>
+                <Button variant="outline" className="w-full h-14 rounded-2xl  gap-2">
+                  <Phone className="w-4 h-4" />
+                  Call Agent
                 </Button>
               </MagneticButton>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

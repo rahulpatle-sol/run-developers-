@@ -7,7 +7,8 @@ export default function AKNagarLayout() {
   const [filterType, setFilterType] = useState("all");
 
   // Complete 71 plots data from your brochure
-  const plots = [
+  const plots = [   
+
     // Row 1-2 (North Side)
     { id: "1", width: 30, length: 31, area: 3080.5, status: "available", type: "residential", location: "North Side" },
     { id: "2", width: 30, length: 31, area: 2828.9, status: "sold", type: "residential", location: "North Side" },
@@ -101,7 +102,7 @@ export default function AKNagarLayout() {
   const availablePlots = totalPlots - soldPlots;
   const totalArea = plots.reduce((sum, p) => sum + p.area, 0);
 
-  const getPlotSuggestion = (plot) => {
+  const getPlotSuggestion = (plot:any) => {
     if (plot.type === "commercial") return "Perfect for shops, offices & businesses";
     if (plot.type === "premium") return "Luxury villa with spacious gardens";
     if (plot.type === "corner") return "Corner plot - Two side road access";
@@ -117,7 +118,7 @@ export default function AKNagarLayout() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      {/* Clean Hero */}
+   
       <section className="relative bg-white border-b">
         <div className="max-w-7xl mx-auto px-6 py-16">
           {/* Top badges */}

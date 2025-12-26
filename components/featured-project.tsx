@@ -424,9 +424,7 @@ export function FeaturedProject() {
                 whileHover={{ scale: 1.04 }}
                 className="hidden sm:block absolute -bottom-8 lg:-right-10 right-6 z-20"
               >
-                <div className="glass-card p-3 rounded-xl shadow-xl border border-yellow-200/10 bg-gradient-to-b from-white/6 to-white/3">
-                  <img src="/images/ak-logo.png" alt="AK Nagar Logo" className="w-20 h-20 object-contain" />
-                </div>
+               
               </motion.div>
             </motion.div>
           </motion.div>
@@ -495,18 +493,18 @@ export function FeaturedProject() {
               transition={{ delay: 0.85 }}
               className="flex flex-col sm:flex-row gap-3"
             >
-              <MagneticButton>
+              {/* <MagneticButton>
                 <button className="bg-gradient-to-r from-yellow-500 to-amber-400 text-slate-900 px-6 py-3 rounded-lg shadow-lg hover:scale-[1.01] transition-transform inline-flex items-center gap-2">
-                  View Plot Layout
+                 
                   <ArrowRight className="w-4 h-4" />
                 </button>
-              </MagneticButton>
+              </MagneticButton> */}
 
-              <MagneticButton>
+              {/* <MagneticButton>
                 <button className="px-6 py-3 border-slate-600/30 hover:border-slate-500 bg-transparent rounded-lg inline-flex items-center justify-center">
                   Download Brochure
                 </button>
-              </MagneticButton>
+              </MagneticButton> */}
             </motion.div>
           </motion.div>
         </div>

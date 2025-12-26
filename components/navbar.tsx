@@ -123,7 +123,7 @@ export function Navbar() {
             <a
               href={whatsappLink}
               target="_blank"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600 text-white text-sm font-semibold hover:bg-green-700 shadow-md"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-400 text-white text-sm font-semibold hover:bg-green-700 shadow-md"
             >
               <MessageCircle className="w-4 h-4" />
               WhatsApp
@@ -131,7 +131,7 @@ export function Navbar() {
           </MagneticButton>
 
           <MagneticButton>
-            <Button className="btn-glass-navy text-white px-6">
+            <Button className="bg-red-500 text-white px-6">
               Book Site Visit
             </Button>
           </MagneticButton>
@@ -185,7 +185,7 @@ export function Navbar() {
                   Chat on WhatsApp
                 </a>
 
-                <Button className="btn-glass-navy text-white w-full">
+                <Button className="bg-red-500 text-white w-full">
                   Book Site Visit
                 </Button>
               </div>
