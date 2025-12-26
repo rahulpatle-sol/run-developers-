@@ -55,6 +55,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         {/* <LenisSmoothScroll /> */}
+          <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet" />
         <Navbar/>
         {children}
         <Analytics />
