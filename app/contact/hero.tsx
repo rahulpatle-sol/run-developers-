@@ -67,7 +67,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-[#faf8f3] to-[#f2ede4] px-6 py-20">
+    <div className="min-h-screen  mt-8 bg-gradient-to-br from-white via-[#faf8f3] to-[#f2ede4] px-6 py-20">
 
       {/* HERO */}
       <section className="max-w-6xl mx-auto mb-24 grid md:grid-cols-2 gap-14 items-center">

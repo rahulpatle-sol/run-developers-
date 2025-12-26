@@ -34,7 +34,7 @@ export default function PremiumProjectsHero() {
             <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-white shadow-xl">
               <ShieldCheck className="w-6 h-6" />
             </div>
-            <span>RUN TECH</span>
+            <span>RUN Developers</span>
           </div>
           <div className="text-[10px] font-bold uppercase tracking-[4px] text-gray-400">
             Est. 2010 • Seoni, MP

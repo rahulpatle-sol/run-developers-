@@ -1,198 +1,171 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Menu, X, Phone, MessageCircle } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
-import { MagneticButton } from "./magnetic-button"
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { Menu, X, Phone, MessageCircle, ArrowUpRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
-  { name: "Plot Layout", href: "/plot-layout" },
+  { name: "Layout", href: "/plot-layout" },
   { name: "Location", href: "/location" },
   { name: "Contact", href: "/contact" },
-]
+];
 
-const whatsappLink =
-  "https://wa.me/919300160966?text=Hello%20Run%20Developers,%20I%20want%20details%20about%20A.K.%20Nagar%20plots"
-
-function GlitchLink({
-  children,
-  href,
-  isActive,
-  onClick,
-}: {
-  children: string
-  href: string
-  isActive: boolean
-  onClick: () => void
-}) {
-  return (
-    <a
-      href={href}
-      onClick={onClick}
-      data-text={children}
-      className={cn(
-        "glitch-link text-sm font-medium transition-colors relative py-2",
-        isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-      )}
-    >
-      {children}
-      <motion.span
-        className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-secondary to-primary"
-        initial={{ width: 0 }}
-        animate={{ width: isActive ? "100%" : 0 }}
-        whileHover={{ width: "100%" }}
-        transition={{ duration: 0.3 }}
-      />
-    </a>
-  )
-}
+// WhatsApp URL Constant
+const whatsappUrl = `https://wa.me/919300160966?text=${encodeURIComponent(
+  "Hello Run Developers, I am interested in A.K. Nagar plots. Please share more details."
+)}`;
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeLink, setActiveLink] = useState("Home")
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const { scrollY } = useScroll()
-  const navBgOpacity = useTransform(scrollY, [0, 100], [0, 1])
-  const navBlur = useTransform(scrollY, [0, 100], [0, 20])
+  const { scrollY } = useScroll();
+  const navWidth = useTransform(scrollY, [0, 100], ["100%", "90%"]);
+  const navTop = useTransform(scrollY, [0, 100], [0, 20]);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleNav = (href: string) => {
+    setIsMobileMenuOpen(false);
+    router.push(href);
+  };
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="fixed top-0 left-0 right-0 z-50"
+      style={{ width: navWidth, top: navTop }}
+      className={cn(
+        "fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-500",
+        isScrolled 
+          ? "bg-white/80 backdrop-blur-2xl rounded-[30px] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/20 px-4 py-2" 
+          : "bg-transparent px-6 py-6"
+      )}
     >
-      <motion.div
-        className="absolute inset-0 border-b border-border/50"
-        style={{
-          opacity: navBgOpacity,
-          backdropFilter: `blur(${navBlur}px)`,
-          backgroundColor: "rgba(255,255,255,0.9)",
-        }}
-      />
+      <div className="max-w-[1400px] mx-auto flex items-center justify-between">
+        {/* LOGO */}
+        <div 
+          onClick={() => handleNav("/")} 
+          className="cursor-pointer flex items-center gap-2 group"
+        >
+          <img src="/images/mainlogo.png" alt="Run" className="h-10 md:h-12 w-auto object-contain" />
+          <div className="hidden sm:block text-zinc-900">
+             <p className="text-xs font-bold tracking-[3px] leading-none">RUN</p>
+             <p className="text-[10px] font-bold text-zinc-400 tracking-[1px]">DEVELOPERS</p>
+          </div>
+        </div>
 
-      <div
-        className={cn(
-          "container mx-auto px-4 lg:px-6 flex items-center justify-between relative z-10 transition-all",
-          isScrolled ? "py-2" : "py-4",
-        )}
-      >
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-3">
-          <img src="/images/mainlogo.png" alt="Run Developers" className="h-12 w-auto" />
-        </a>
-
-        {/* Desktop Nav */}
-        <nav className="hidden xl:flex items-center gap-6">
+        {/* DESKTOP NAV */}
+        <nav className="hidden xl:flex items-center gap-2 bg-zinc-100/50 p-1 rounded-full border border-zinc-200/50">
           {navLinks.map((link) => (
-            <MagneticButton key={link.name} strength={0.15}>
-              <GlitchLink
-                href={link.href}
-                isActive={activeLink === link.name}
-                onClick={() => setActiveLink(link.name)}
-              >
-                {link.name}
-              </GlitchLink>
-            </MagneticButton>
+            <button
+              key={link.name}
+              onClick={() => handleNav(link.href)}
+              className={cn(
+                "px-6 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest transition-all",
+                pathname === link.href 
+                  ? "bg-white text-black shadow-sm" 
+                  : "text-zinc-500 hover:text-black hover:bg-white/50"
+              )}
+            >
+              {link.name}
+            </button>
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden lg:flex items-center gap-4">
+        {/* CTA SECTION */}
+        <div className="flex items-center gap-3">
+          {/* Desktop WhatsApp Icon */}
           <a
-            href="tel:9300160966"
-            className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 text-green-600 hover:bg-green-500 hover:text-white transition-all shadow-sm"
           >
-            <Phone className="w-4 h-4" />
-            9300 160 966
+            <MessageCircle size={18} />
           </a>
 
-          <MagneticButton strength={0.2}>
-            <a
-              href={whatsappLink}
-              target="_blank"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-400 text-white text-sm font-semibold hover:bg-green-700 shadow-md"
-            >
-              <MessageCircle className="w-4 h-4" />
-              WhatsApp
-            </a>
-          </MagneticButton>
+          {/* Phone Icon */}
+          <a
+            href="tel:9300160966"
+            className="hidden md:flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 text-zinc-600 hover:bg-black hover:text-white transition-all shadow-sm"
+          >
+            <Phone size={18} />
+          </a>
 
-          <MagneticButton>
-            <Button className="bg-red-500 text-white px-6">
-              Book Site Visit
-            </Button>
-          </MagneticButton>
+          <button
+            onClick={() => handleNav("/contact")}
+            className="hidden lg:flex items-center gap-3 bg-zinc-900 text-white px-7 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#f15a24] transition-all shadow-xl active:scale-95"
+          >
+            Book Visit <ArrowUpRight size={16} />
+          </button>
+
+          {/* MOBILE TOGGLE */}
+          <button
+            className="xl:hidden h-11 w-11 flex items-center justify-center rounded-full bg-zinc-100 text-black shadow-inner"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-
-        {/* Mobile Toggle */}
-        <button
-          className="xl:hidden p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="xl:hidden glass border-b border-border/50"
+            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            className="absolute top-full left-0 right-0 mt-4 bg-white rounded-[40px] shadow-[0_40px_80px_rgba(0,0,0,0.15)] border border-zinc-100 p-8 xl:hidden overflow-hidden"
           >
-            <nav className="container mx-auto px-6 py-6 flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
+            
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.name}
-                  href={link.href}
-                  className="text-base font-medium text-muted-foreground hover:text-foreground py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => handleNav(link.href)}
+                  className={cn(
+                    "flex items-center justify-between w-full text-2xl font-serif font-bold py-4 border-b border-zinc-50 text-left transition-all active:pl-4",
+                    pathname === link.href ? "text-[#ff0000]" : "text-zinc-900"
+                  )}
                 >
                   {link.name}
-                </a>
+                  <ArrowUpRight className="opacity-20" />
+                </button>
               ))}
+            </div>
 
-              <div className="pt-4 border-t border-border/50">
-                <a
-                  href="tel:9300160966"
-                  className="flex items-center gap-2 text-lg font-bold text-primary mb-4"
-                >
-                  <Phone className="w-5 h-5" />
-                  9300 160 966
-                </a>
-
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-green-600 text-white font-semibold mb-3"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Chat on WhatsApp
-                </a>
-
-                <Button className="bg-red-500 text-white w-full">
-                  Book Site Visit
-                </Button>
-              </div>
-            </nav>
+            <div className="mt-8 pt-8 flex flex-col gap-4">
+              {/* FIXED WHATSAPP LINK FOR MOBILE */}
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 w-full py-5 rounded-[25px] bg-[#25D366] text-white font-bold shadow-lg hover:shadow-green-200 transition-all active:scale-95"
+              >
+                <MessageCircle size={20} /> Chat on WhatsApp
+              </a>
+              
+              <button 
+                 onClick={() => handleNav("/contact")}
+                 className="w-full py-5 rounded-[25px] bg-black text-white font-bold shadow-xl active:scale-95"
+              >
+                Schedule Site Visit
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </motion.header>
-  )
+  );
 }

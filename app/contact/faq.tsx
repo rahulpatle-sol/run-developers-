@@ -2,53 +2,51 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { Plus } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const faqs = [
   {
     q: "Is the land legally approved and registered?",
-    a: "Yes. All Run Developers projects are legally verified with clear title ownership, approved layouts, and registry-ready plots. We ensure complete transparency before any booking.",
+    a: "Yes. All Run Developers projects are legally verified with clear title ownership, approved layouts (T&CP), and RERA registered plots ensuring complete transparency.",
   },
   {
     q: "Do you provide registry and documentation support?",
-    a: "Absolutely. Our team assists buyers through the entire registry process, including documentation, stamp duty guidance, and legal verification.",
+    a: "Absolutely. Our dedicated legal team assists buyers through the entire process, including stamp duty guidance and hassle-free documentation.",
   },
   {
     q: "Are basic infrastructure facilities included?",
-    a: "Yes. Every project includes well-planned internal roads, drainage systems, electricity connectivity, water supply provisions, and open green spaces.",
+    a: "Every project includes premium 30-40ft wide internal roads, specialized drainage systems, electricity connectivity, and dedicated green park areas.",
   },
   {
-    q: "Can plots be purchased through EMI or installment plans?",
-    a: "Yes. Selected projects offer flexible payment options and installment plans. Our sales team can guide you through available financing options.",
-  },
-  {
-    q: "When will possession be given?",
-    a: "Possession timelines depend on the project phase. For ongoing projects like AK Nagar, possession is aligned with infrastructure completion and registry milestones.",
-  },
-  {
-    q: "Is the investment suitable for long-term growth?",
-    a: "Run Developers focuses on strategically located projects with future connectivity and development potential, making them ideal for both residential use and long-term appreciation.",
+    q: "Can plots be purchased through EMI plans?",
+    a: "Yes. We offer flexible payment options and have tie-ups with leading banks for easy loan facilities and structured installment plans.",
   },
 ];
 
-export default function FAQSection() {
+export default function PremiumFAQSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<number | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".faq-head", {
-        y: 30,
+        y: 40,
         opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
+        duration: 1,
+        ease: "power4.out",
       });
 
-      gsap.from(".faq-item", {
-        y: 20,
+      gsap.from(".faq-card", {
+        y: 30,
         opacity: 0,
-        stagger: 0.15,
-        duration: 0.7,
-        ease: "power3.out",
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: ".faq-container",
+          start: "top 80%",
+        }
       });
     }, sectionRef);
 
@@ -58,69 +56,93 @@ export default function FAQSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-gradient-to-b from-white via-[#faf8f3] to-white px-6 lg:px-20 py-28"
+      className="relative bg-[#ebeae6] px-6 lg:px-20 py-32 overflow-hidden font-sans text-zinc-900"
     >
-      {/* subtle texture */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.035] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:20px_20px]" />
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/30 blur-[120px] rounded-full -mr-64 -mt-64" />
 
-      <div className="relative max-w-4xl mx-auto">
-        {/* HEADER */}
-        <div className="faq-head text-center mb-16">
-          <p className="text-xs tracking-[4px] text-gray-500 mb-5">
-            FREQUENTLY ASKED QUESTIONS
+      <div className="relative max-w-5xl mx-auto">
+        
+        {/* --- HEADER: GIANT SERIF --- */}
+        <div className="faq-head text-center mb-24">
+          <p className="text-[10px] font-bold tracking-[5px] text-zinc-400 mb-6 uppercase italic">
+            Common Inquiries
           </p>
 
-          <h2 className="text-3xl lg:text-5xl font-serif text-gray-900 leading-tight">
-            Clear Answers for <br />
-            <span className="italic">Confident Decisions</span>
+          <h2 className="text-5xl md:text-8xl font-serif font-bold leading-[0.85] tracking-tighter text-zinc-900">
+            Clear Answers <br />
+            <span className="text-zinc-400 italic font-light font-sans tracking-tight">For Your Peace</span>
           </h2>
-
-          <p className="mt-6 text-sm text-gray-600 max-w-xl mx-auto">
-            We believe trust starts with clarity. Here are answers to the most
-            common questions our customers ask before investing.
-          </p>
+          
+          <div className="mt-10 h-1 w-20 bg-zinc-900 mx-auto rounded-full" />
         </div>
 
-        {/* FAQ LIST */}
-        <div className="space-y-5">
+        {/* --- FAQ LIST: MOLDED CARDS --- */}
+        <div className="faq-container space-y-4">
           {faqs.map((item, i) => (
             <div
               key={i}
-              className="faq-item border border-gray-200 rounded-2xl bg-white overflow-hidden shadow-sm"
+              className="faq-card bg-[#dedede] rounded-[40px] p-1 shadow-inner border border-white/20 transition-all duration-500"
             >
-              <button
-                onClick={() => setActive(active === i ? null : i)}
-                className="w-full flex justify-between items-center px-6 py-5 text-left"
+              <div 
+                className={cn(
+                  "rounded-[36px] transition-all duration-500 overflow-hidden border-[4px] border-white",
+                  active === i ? "bg-zinc-900 text-white shadow-2xl scale-[1.02]" : "bg-white text-zinc-900 shadow-lg"
+                )}
               >
-                <span className="text-sm lg:text-base font-medium text-gray-900">
-                  {item.q}
-                </span>
-
-                <span
-                  className={`ml-6 transition-transform duration-300 ${
-                    active === i ? "rotate-45" : ""
-                  }`}
+                <button
+                  onClick={() => setActive(active === i ? null : i)}
+                  className="w-full flex justify-between items-center px-8 py-7 text-left group"
                 >
-                  <span className="block w-4 h-[2px] bg-gray-800 mb-[6px]" />
-                  <span className="block w-4 h-[2px] bg-gray-800" />
-                </span>
-              </button>
+                  <span className="text-lg md:text-xl font-bold tracking-tight">
+                    {item.q}
+                  </span>
 
-              <div
-                className={`px-6 transition-all duration-500 ease-in-out ${
-                  active === i
-                    ? "max-h-40 pb-6 opacity-100"
-                    : "max-h-0 pb-0 opacity-0"
-                } overflow-hidden`}
-              >
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {item.a}
-                </p>
+                  <div className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500",
+                    active === i ? "bg-white text-black rotate-45" : "bg-zinc-100 text-zinc-400 group-hover:bg-zinc-900 group-hover:text-white"
+                  )}>
+                    <Plus size={20} />
+                  </div>
+                </button>
+
+                <div
+                  className={cn(
+                    "px-8 transition-all duration-500 ease-in-out overflow-hidden",
+                    active === i ? "max-h-[300px] pb-10 opacity-100" : "max-h-0 opacity-0"
+                  )}
+                >
+                  <p className={cn(
+                    "text-base leading-relaxed italic font-medium max-w-2xl",
+                    active === i ? "text-zinc-400" : "text-zinc-500"
+                  )}>
+                    {item.a}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* BOTTOM CTA */}
+        <div className="mt-20 text-center">
+          <p className="text-sm font-medium text-zinc-500 italic mb-6">Still have questions?</p>
+          <a 
+            href="tel:9300160966"
+            className="inline-flex items-center gap-3 bg-white px-8 py-4 rounded-full font-bold shadow-xl border border-zinc-100 hover:scale-105 transition-transform"
+          >
+            Ask Our Experts 
+            <div className="w-8 h-8 rounded-full bg-zinc-900 text-white flex items-center justify-center">
+               <Plus size={14} className="rotate-45" />
+            </div>
+          </a>
+        </div>
       </div>
+
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+        .font-serif { font-family: 'Playfair Display', serif; }
+      `}</style>
     </section>
   );
 }
