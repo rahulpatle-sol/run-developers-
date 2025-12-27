@@ -14,7 +14,7 @@ export default function RunDevelopersConstructionUI() {
           <div className="w-full max-w-[450px] bg-white rounded-[40px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 p-3">
             <div className="rounded-[32px] overflow-hidden h-[500px] relative">
               <img 
-                src="/images/image.png" 
+                src="/images/rundeveloper.png" 
                 alt="Construction Expert"
                 className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-500"
               />

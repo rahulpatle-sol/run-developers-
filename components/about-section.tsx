@@ -47,7 +47,7 @@ export function AboutSection() {
               <img
                 src="/images/main-gate.png" // Ensure you use a high-quality gate image here
                 alt="A.K. Nagar Entrance"
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                className="w-full h-full object-center  transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               

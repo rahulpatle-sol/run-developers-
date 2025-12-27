@@ -22,7 +22,7 @@ const connectivity = [
   ]},
   { label: "Education", items: [
     { from: "Podar International", dist: "600 m", icon: School },
-    { from: "Ray Engg. College", dist: "500 m", icon: School },
+    { from: "Bhagat  Singh Rai Engg. College", dist: "500 m", icon: School },
   ]},
   { label: "Healthcare", items: [
     { from: "Govt. Hospital", dist: "5 km", icon: Hospital },
@@ -172,7 +172,7 @@ export function LocationSection() {
               <MagneticButton>
                 <Button variant="outline" className="w-full h-14 rounded-2xl  gap-2">
                   <Phone className="w-4 h-4" />
-                  Call Agent
+                  Call  Now 
                 </Button>
               </MagneticButton>
             </div>

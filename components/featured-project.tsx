@@ -48,7 +48,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 /* ----------------------------- Shared data ----------------------------- */
 
 const projectFeatures = [
-  { icon: Ruler, label: "Plot Sizes", value: "750 - 6600 Sq.ft" },
+  { icon: Ruler, label: "Plot Sizes", value: "1500  - 1800 Sq.ft" },
   { icon: Trees, label: "Green Area", value: "30% Open Space" },
   { icon: Car, label: "Road Width", value: "7.5m - 9m Wide" },
   { icon: Home, label: "Total Plots", value: "72+ Premium" },
@@ -380,14 +380,14 @@ export function FeaturedProject() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               </div>
 
-              <div className="absolute top-4 left-4">
-                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-amber-400 text-white px-3 py-1.5 rounded-full shadow-md">
-                  <span className="text-xs font-semibold">Premium</span>
-                  <span className="text-[10px] opacity-90">Limited Plots</span>
-                </div>
-              </div>
+              <div className="absolute top-4 left-4 hidden md:block">
+  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-amber-400 text-white px-3 py-1.5 rounded-full shadow-md">
+    <span className="text-xs font-semibold">Premium</span>
+    <span className="text-[10px] opacity-90">Limited Plots</span>
+  </div>
+</div>
 
-              <div className="absolute top-4 right-4 flex flex-col sm:flex-row sm:items-center sm:gap-3 gap-2">
+              <div className="absolute top-4 right-4 flex flex-col sm:flex-row sm:items-center sm:gap-3 gap-2  hidden md:block">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}

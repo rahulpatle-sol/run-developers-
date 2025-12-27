@@ -70,7 +70,7 @@ export default function RunDevelopersPremium() {
                   <img 
                     src="/images/main-gate.png" 
                     alt="Luxury Villa"
-                    className="w-full aspect-[3/4]  p-4 object-cover rounded-[30px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] border-[12px] border-white transform -rotate-3 group-hover:rotate-0 transition-transform duration-700"
+                    className="w-full aspect-[3/4]   object-contain rounded-[30px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] border-[12px] border-white transform -rotate-3 group-hover:rotate-0 transition-transform duration-700"
                   />
                   <div className="absolute -bottom-6 -right-6 bg-red-500 text-white p-6 rounded-3xl shadow-2xl">
                     <Building2 className="w-8 h-8" />
@@ -84,7 +84,7 @@ export default function RunDevelopersPremium() {
                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop" 
+                    src="/residential-plots-india-landscape.jpg" 
                     alt="Premium Colony"
                     className="w-full aspect-[3/4] object-cover rounded-[30px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] border-[12px] border-white transform rotate-3 group-hover:rotate-0 transition-transform duration-700"
                   />
