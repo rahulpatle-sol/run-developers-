@@ -139,10 +139,10 @@ export default function RunDevelopersPremium() {
             <div className="space-y-4">
               <div className="flex justify-between border-b border-white/10 pb-2 italic font-serif">
                 <span>A.K. Nagar</span>
-                <span className="text-red-500 text-xs">Phase 1 Sold</span>
+                <span className="text-red-500 text-xs">Phase 1 </span>
               </div>
               <div className="flex justify-between border-b border-white/10 pb-2 italic font-serif">
-                <span>Bypass Greens</span>
+                <span>A.K. Nagar</span>
                 <span className="text-gray-500 text-xs tracking-widest">New Launch</span>
               </div>
             </div>

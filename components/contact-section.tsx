@@ -85,7 +85,7 @@ export function ContactSection() {
                 { 
                   icon: MapPin, 
                   label: "Site Location", 
-                  value: "Bypass Chowk, Mandla Road, Seoni, MP", 
+                  value: "Near  Bypass Chowk, Mandla Road, Bithli Seoni, MP", 
                   href: "#" 
                 },
               ].map((item, i) => (
